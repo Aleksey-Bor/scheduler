@@ -10,11 +10,16 @@ export type TaskType = {
 type PropsTitle = {
   title: string
   tasks: Array<TaskType>
+  removeTask: Function
+  changeFilter: Function
 }
 
 export type TaskProps = {
   tasks: Array<TaskType>
+  removeTask: Function;
 }
+
+export type FilterValuesType = "all | active | completed"
 
 export function TodoList(props: PropsTitle) {
   return (
@@ -25,12 +30,12 @@ export function TodoList(props: PropsTitle) {
         <button>+</button>
       </div>
       <ul>
-        <Task tasks={props.tasks} />
+        <Task tasks={props.tasks} removeTask={props.removeTask} />
       </ul>
       <div>
-        <button>Все</button>
-        <button>Активные</button>
-        <button>Завершенные</button>
+        <button onClick={() => props.changeFilter("all")}>Все</button>
+        <button onClick={() => props.changeFilter("active")}>Активные</button>
+        <button onClick={() => props.changeFilter("completed")}>Завершенные</button>
       </div>
     </div>
   );
