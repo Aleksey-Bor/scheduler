@@ -14,7 +14,7 @@ export function Task(props: TaskProps) {
     <>
       {props.tasks.map(task => (
         <li key={task.id}>
-          <input onClick={() => onSetIsDownHandler(task.id)} type="checkbox" checked={task.isDone} /><span>{task.title}</span>
+          <input onChange={() => onSetIsDownHandler(task.id)} type="checkbox" checked={task.isDone} /><span>{task.title}</span>
           <button onClick={() => onRemoveTaskHandler(task.id)}>x</button>
         </li>
       ))}
