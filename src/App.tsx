@@ -6,24 +6,6 @@ import { log } from 'console';
 import { v1 } from 'uuid';
 
 function App() {
-  /*   let tasks: Array<TaskType> = [
-      { id: 1, title: "Выучить уроки", isDone: true },
-      { id: 2, title: "Пропылесосить", isDone: true },
-      { id: 3, title: "Вымыть посуду", isDone: false },
-      { id: 4, title: "Выгулять собаку", isDone: false },
-    ] */
-  /*  let tasks2: Array<TaskType> = [
-     { id: 1, title: "Каласы пад сярпом тваiм", isDone: true },
-     { id: 2, title: "Гоблин", isDone: true },
-     { id: 3, title: "Травля", isDone: false },
-     { id: 4, title: "Код адсутнасцi", isDone: false },
-   ]
-   let tasks3: Array<TaskType> = [
-     { id: 1, title: "Бесславные ублюдки", isDone: false },
-     { id: 2, title: "Версаль", isDone: true },
-     { id: 3, title: "ХХХ", isDone: false },
-   ]
-  */
 
   let [tasks, setTask] = useState([
     { id: v1(), title: "Выучить уроки", isDone: true },
@@ -32,7 +14,7 @@ function App() {
     { id: v1(), title: "Выгулять собаку", isDone: false },
   ])
 
-  let [filter, setFilter] = useState("all")
+  let [filter, setFilter] = useState<FilterValuesType>("all")
 
   const removeTask = (id: string) => {
     setTask(tasks.filter(task => task.id !== id))
@@ -67,9 +49,13 @@ function App() {
 
   return (
     <div className="App">
-      <TodoList title="Что сделать" tasks={tasksForTodolist} removeTask={removeTask} changeFilter={changeFilter} addTask={addTask} changeIsDown={changeIsDown} />
-      {/* <TodoList title="Книги" tasks={tasks2} /> */}
-      {/* <TodoList title="Фильмы" tasks={tasks3} /> */}
+      <TodoList title="Что сделать"
+        tasks={tasksForTodolist}
+        filter={filter}
+        removeTask={removeTask}
+        changeFilter={changeFilter}
+        addTask={addTask}
+        changeIsDown={changeIsDown} />
     </div>
   );
 }

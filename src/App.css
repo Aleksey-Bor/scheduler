@@ -1,3 +1,20 @@
-button{
+button {
   margin: 0 2.5px;
+}
+
+.error,
+.error:focus {
+  border: 2px solid red !important;
+}
+
+.error-message {
+  color: red;
+}
+
+.active-filter {
+  background-color: aquamarine;
+}
+
+.completed {
+  opacity: 0.5;
 }
