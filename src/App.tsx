@@ -56,6 +56,14 @@ function App() {
         changeFilter={changeFilter}
         addTask={addTask}
         changeIsDown={changeIsDown} />
+      <TodoList title="Что сделать"
+        tasks={tasksForTodolist}
+        filter={filter}
+        removeTask={removeTask}
+        changeFilter={changeFilter}
+        addTask={addTask}
+        changeIsDown={changeIsDown} />
+
     </div>
   );
 }
