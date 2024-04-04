@@ -3,6 +3,8 @@ import { Task } from './Task';
 
 export type FilterValuesType = "all" | "active" | "completed"
 
+export type todoListType = { id: string, title: string, filter: FilterValuesType }
+
 export type TaskType = {
   id: string
   title: string
@@ -12,17 +14,19 @@ export type TaskType = {
 type PropsTitle = {
   title: string
   tasks: Array<TaskType>
+  todoListId: string
   filter: FilterValuesType
-  removeTask: (id: string) => void
-  changeFilter: (filter: FilterValuesType) => void
-  addTask: (taskTitle: string) => void
-  changeIsDown: (id: string) => void
+  removeTask: (id: string, todoListId: string) => void
+  changeFilter: (filter: FilterValuesType, todoListId: string) => void
+  addTask: (taskTitle: string, todoListId: string) => void
+  changeIsDown: (id: string,  todoListId: string) => void
 }
 
 export type TaskProps = {
   tasks: Array<TaskType>
-  removeTask: (id: string) => void
-  changeIsDown: (id: string) => void
+  todoListId: string
+  removeTask: (id: string, todoListId: string) => void
+  changeIsDown: (id: string,  todoListId: string) => void
 }
 
 
@@ -32,7 +36,7 @@ export function TodoList(props: PropsTitle) {
 
   const addTaskHandler = () => {
     if (newTaskTitle.trim() !== "") {
-      props.addTask(newTaskTitle)
+      props.addTask(newTaskTitle, props.todoListId)
       setNewTaskTitle("")
     } else {
       setError("Поле обязательно!")
@@ -52,15 +56,15 @@ export function TodoList(props: PropsTitle) {
   }
 
   const onAllFilterClickHandler = () => {
-    props.changeFilter("all")
+    props.changeFilter("all", props.todoListId)
   }
 
   const onActiveFilterClickHandler = () => {
-    props.changeFilter("active")
+    props.changeFilter("active", props.todoListId)
   }
 
   const onCompletedFilterClickHandler = () => {
-    props.changeFilter("completed")
+    props.changeFilter("completed", props.todoListId)
   }
 
   return (
@@ -76,6 +80,7 @@ export function TodoList(props: PropsTitle) {
       </div>
       <ul>
         <Task tasks={props.tasks}
+          todoListId={props.todoListId}
           removeTask={props.removeTask}
           changeIsDown={props.changeIsDown} />
       </ul>

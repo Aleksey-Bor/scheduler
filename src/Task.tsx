@@ -3,11 +3,11 @@ import { TaskProps } from './TodoList';
 
 export function Task(props: TaskProps) {
   const onSetIsDownHandler = (taskId: string) => {
-    props.changeIsDown(taskId)
+    props.changeIsDown(taskId, props.todoListId)
   }
 
   const onRemoveTaskHandler = (taskId: string) => {
-    props.removeTask(taskId)
+    props.removeTask(taskId, props.todoListId)
   }
 
   return (
