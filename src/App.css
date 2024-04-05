@@ -1,7 +1,15 @@
-.App {
+.lists-container {
   display: flex;
   flex-wrap: wrap;
-  margin: 10px;
+}
+
+.list {
+  margin: 20px;
+}
+
+.main-input {
+  padding: 20px 0;
+  text-align: center;
 }
 
 button {

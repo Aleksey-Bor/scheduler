@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import { TaskProps } from './TodoList';
+import React from 'react';
+import { TaskType } from './TodoList';
+
+type TaskProps = {
+  tasks: Array<TaskType>
+  todoListId: string
+  removeTask: (id: string, todoListId: string) => void
+  changeIsDown: (id: string, todoListId: string) => void
+}
 
 export function Task(props: TaskProps) {
   const onSetIsDownHandler = (taskId: string) => {
@@ -12,7 +19,7 @@ export function Task(props: TaskProps) {
 
   return (
     <>
-      {props.tasks.map(task => (
+      {props.tasks && props.tasks.map(task => (
         <li className={task.isDone ? "completed" : ""} key={task.id}>
           <input onChange={() => onSetIsDownHandler(task.id)}
             type="checkbox"
