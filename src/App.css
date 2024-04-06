@@ -7,6 +7,10 @@
   margin: 20px;
 }
 
+h2 {
+  font-size: 1.17em;
+}
+
 .main-input {
   padding: 20px 0;
   text-align: center;

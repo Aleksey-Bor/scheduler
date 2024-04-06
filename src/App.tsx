@@ -39,8 +39,16 @@ function App() {
     let task = allTasks[todoListId].find(task => task.id === id)
     if (task) {
       task.isDone = !task.isDone
+      setAllTasks({ ...allTasks })
     }
-    setAllTasks({ ...allTasks })
+  }
+
+  const changeTask = (taskId: string, todoListId: string, newTitle: string) => {
+    let task = allTasks[todoListId].find(task => task.id === taskId)
+    if (task) {
+      task.title = newTitle
+      setAllTasks({ ...allTasks })
+    }
   }
 
   const changeFilter = (filter: FilterValuesType, todoListId: string) => {
@@ -61,9 +69,16 @@ function App() {
     });
   };
 
-
   const addTodoList = (listTitle: string) => {
     setTodoLists([{ id: v1(), title: listTitle, filter: "all" }, ...todoLists])
+  }
+
+  const changeTodoListTitle = (todoListId: string, newTitle: string) => {
+    let todoList = todoLists.find(todoList => todoList.id === todoListId)
+    if (todoList) {
+      todoList.title = newTitle
+      setTodoLists([...todoLists])
+    }
   }
 
   return (
@@ -92,10 +107,12 @@ function App() {
             todoListId={todoList.id}
             tasks={tasksForTodoList}
             filter={todoList.filter}
+            changeTask={changeTask}
             removeTask={removeTask}
             changeFilter={changeFilter}
             addTask={addTask}
-            changeIsDown={changeIsDown} />
+            changeIsDown={changeIsDown}
+            changeTodoListTitle={changeTodoListTitle} />
         }
         )}
       </div>

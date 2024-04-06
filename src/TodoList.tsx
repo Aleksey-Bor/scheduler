@@ -2,6 +2,7 @@ import React from 'react';
 import { Task } from './Task';
 import { AddItemForm } from './AddItemForm';
 import { FilterValuesType } from './App';
+import { EditableSpan } from './EditableSpan';
 
 export type TaskType = {
   id: string
@@ -14,13 +15,13 @@ type PropsTitle = {
   tasks: Array<TaskType>
   todoListId: string
   filter: FilterValuesType
+  changeTask: (taskId: string, todoListId: string, newTitle: string) => void
   removeTask: (id: string, todoListId: string) => void
   changeFilter: (filter: FilterValuesType, todoListId: string) => void
   addTask: (taskTitle: string, todoListId: string) => void
   changeIsDown: (id: string, todoListId: string) => void
+  changeTodoListTitle: (todoListId: string, newTitle: string) => void
 }
-
-
 
 export function TodoList(props: PropsTitle) {
   const onAllFilterClickHandler = () => {
@@ -39,15 +40,20 @@ export function TodoList(props: PropsTitle) {
     props.addTask(taskTitle, props.todoListId)
   }
 
+  const onChangeTitle = (newTitle: string) => {
+    props.changeTodoListTitle(props.todoListId, newTitle);
+  };
+
   return (
     <div className='list'>
-      <h3>{props.title}</h3>
+      <h2><EditableSpan title={props.title} onChangeTitle={onChangeTitle} /></h2>
       <AddItemForm addItem={addTask} />
       <ul>
         <Task tasks={props.tasks}
           todoListId={props.todoListId}
           removeTask={props.removeTask}
-          changeIsDown={props.changeIsDown} />
+          changeIsDown={props.changeIsDown}
+          changeTask={props.changeTask} />
       </ul>
       <div>
         <button className={props.filter === "all" ? "active-filter" : ""}
@@ -60,5 +66,7 @@ export function TodoList(props: PropsTitle) {
     </div>
   );
 }
+
+
 
 
