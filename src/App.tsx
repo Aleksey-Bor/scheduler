@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import './App.css';
-import { TodoList } from './TodoList';
+import { TaskType, TodoList } from './TodoList';
 import { v1 } from 'uuid';
 import { AddItemForm } from './AddItemForm';
 
 export type FilterValuesType = "all" | "active" | "completed"
-export type todoListType = { id: string, title: string, filter: FilterValuesType }
+type TodoListType = { id: string, title: string, filter: FilterValuesType }
+type TaskStateType = { [key: string]: Array<TaskType> }
 
 function App() {
   const todoListId1 = v1()
   const todoListId2 = v1()
 
-  let [allTasks, setAllTasks] = useState({
+  let [allTasks, setAllTasks] = useState<TaskStateType>({
     [todoListId1]: [
       { id: v1(), title: "Выучить уроки", isDone: true },
       { id: v1(), title: "Пропылесосить", isDone: true },
@@ -24,7 +25,7 @@ function App() {
     ]
   })
 
-  let [todoLists, setTodoLists] = useState<Array<todoListType>>([
+  let [todoLists, setTodoLists] = useState<Array<TodoListType>>([
     { id: todoListId1, title: "Что сделать", filter: "all" },
     { id: todoListId2, title: "Что купить", filter: "all" },
   ])
@@ -82,7 +83,7 @@ function App() {
               tasksForTodoList = tasksForTodoList.filter(task => task.isDone === false)
             }
           } else {
-            tasksForTodoList = [];
+            tasksForTodoList = []
           }
 
           return <TodoList

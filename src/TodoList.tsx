@@ -3,8 +3,6 @@ import { Task } from './Task';
 import { AddItemForm } from './AddItemForm';
 import { FilterValuesType } from './App';
 
-
-
 export type TaskType = {
   id: string
   title: string
