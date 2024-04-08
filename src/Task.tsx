@@ -1,6 +1,7 @@
 import React from "react";
 import { TaskType } from "./TodoList";
 import { EditableSpan } from "./EditableSpan";
+import { RemoveButton } from "./RemoveButton";
 
 type TaskProps = {
   tasks: Array<TaskType>;
@@ -15,9 +16,9 @@ export function Task(props: TaskProps) {
     props.changeIsDown(taskId, props.todoListId);
   };
 
-  const onRemoveTaskHandler = (taskId: string) => {
-    props.removeTask(taskId, props.todoListId);
-  };
+  const remover = (elemId: string) => {
+    props.removeTask(elemId, props.todoListId)
+  }
 
   return (
     <>
@@ -38,10 +39,15 @@ export function Task(props: TaskProps) {
                 title={task.title}
                 onChangeTitle={onChangeTitle}
               />
-              <button onClick={() => onRemoveTaskHandler(task.id)}>x</button>
+              <RemoveButton 
+                elemId={task.id}
+                remover={remover} />
             </li>
           );
         })}
     </>
   );
 }
+
+
+
