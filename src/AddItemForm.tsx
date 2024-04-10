@@ -1,3 +1,4 @@
+import { Button, TextField } from '@mui/material';
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 
 type AddItemFormType = {
@@ -30,11 +31,14 @@ export function AddItemForm(props: AddItemFormType) {
   };
 
   return <div>    
-    <input className={error ? "error" : ""}
+    <TextField 
       onChange={onNewItemChangeHandler}
       onKeyDown={onAddItemKeyDownHandler}
-      value={newTitle} />
-    <button onClick={addItemHandler}>+</button>
-    <div className={error ? "error-message" : ""}>{error}</div>
+      value={newTitle} 
+      label="Введите заголовок"
+      variant="outlined"
+      error={!!error}
+      helperText={error}/>
+    <Button onClick={addItemHandler} variant='contained' color='primary'>+</Button>
   </div>;
 }

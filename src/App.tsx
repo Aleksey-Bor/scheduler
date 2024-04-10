@@ -4,6 +4,8 @@ import { TaskType, TodoList } from './TodoList';
 import { v1 } from 'uuid';
 import { AddItemForm } from './AddItemForm';
 
+
+
 export type FilterValuesType = "all" | "active" | "completed"
 type TodoListType = { id: string, title: string, filter: FilterValuesType }
 type TaskStateType = { [key: string]: Array<TaskType> }

@@ -1,3 +1,5 @@
+import { Delete } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import React from "react";
 
 type RemoveButtonType = {
@@ -10,5 +12,7 @@ export function RemoveButton(props: RemoveButtonType) {
     props.remover(props.elemId);
   };
 
-  return <button onClick={onRemoveHandler}>x</button>;
+  return <IconButton aria-label="delete">
+    <Delete onClick={onRemoveHandler} fontSize="small"/>
+  </IconButton>
 }

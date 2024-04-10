@@ -4,6 +4,7 @@ import { AddItemForm } from "./AddItemForm";
 import { FilterValuesType } from "./App";
 import { EditableSpan } from "./EditableSpan";
 import { RemoveButton } from "./RemoveButton";
+import { Button } from "@mui/material";
 
 export type TaskType = {
   id: string;
@@ -67,24 +68,24 @@ export function TodoList(props: PropsTitle) {
         />
       </ul>
       <div>
-        <button
-          className={props.filter === "all" ? "active-filter" : ""}
+        <Button
+          variant={props.filter === "all" ? "contained" : "text"}
           onClick={onAllFilterClickHandler}
         >
           Все
-        </button>
-        <button
-          className={props.filter === "active" ? "active-filter" : ""}
+        </Button>
+        <Button
+          variant={props.filter === "active" ? "contained" : "text"}
           onClick={onActiveFilterClickHandler}
         >
           Активные
-        </button>
-        <button
-          className={props.filter === "completed" ? "active-filter" : ""}
+        </Button>
+        <Button
+          variant={props.filter === "completed" ? "contained" : "text"}
           onClick={onCompletedFilterClickHandler}
         >
           Завершенные
-        </button>
+        </Button>
       </div>
     </div>
   );

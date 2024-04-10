@@ -3,6 +3,11 @@
   flex-wrap: wrap;
 }
 
+div {
+/*   display: flex;	
+	justify-content: center; */
+}
+
 .list {
   margin: 20px;
 }
@@ -16,25 +21,8 @@ h2 {
   text-align: center;
 }
 
-button {
-  margin: 0 2.5px;
-}
-
 li {
   list-style-type: none;
-}
-
-.error,
-.error:focus {
-  border: 2px solid red !important;
-}
-
-.error-message {
-  color: red;
-}
-
-.active-filter {
-  background-color: aquamarine;
 }
 
 .completed {
