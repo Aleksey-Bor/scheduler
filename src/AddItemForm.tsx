@@ -1,7 +1,9 @@
+import { AddCircleOutlineRounded } from '@mui/icons-material';
+import {IconButton, TextField } from '@mui/material';
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 
 type AddItemFormType = {
-  addItem: (title: string) => void;  
+  addItem: (title: string) => void;
 };
 
 export function AddItemForm(props: AddItemFormType) {
@@ -29,12 +31,17 @@ export function AddItemForm(props: AddItemFormType) {
     }
   };
 
-  return <div>    
-    <input className={error ? "error" : ""}
+  return <div>
+    <TextField
       onChange={onNewItemChangeHandler}
       onKeyDown={onAddItemKeyDownHandler}
-      value={newTitle} />
-    <button onClick={addItemHandler}>+</button>
-    <div className={error ? "error-message" : ""}>{error}</div>
+      value={newTitle}
+      label="Введите заголовок"
+      variant="outlined"
+      error={!!error}
+      helperText={error} />
+    <IconButton onClick={addItemHandler} color='primary'>
+      <AddCircleOutlineRounded fontSize="large" />
+    </IconButton>
   </div>;
 }

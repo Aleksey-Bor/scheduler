@@ -4,6 +4,8 @@ import { TaskType, TodoList } from './TodoList';
 import { v1 } from 'uuid';
 import { AddItemForm } from './AddItemForm';
 
+
+
 export type FilterValuesType = "all" | "active" | "completed"
 type TodoListType = { id: string, title: string, filter: FilterValuesType }
 type TaskStateType = { [key: string]: Array<TaskType> }
@@ -35,6 +37,11 @@ function App() {
     setAllTasks({ ...allTasks, [todoListId]: newTasks })
   }
 
+  const removeTodoList = (elemId: string) => {
+    let newTodoLists = todoLists.filter(todoList => todoList.id !== elemId)
+    setTodoLists([...newTodoLists])
+  }
+
   const changeIsDown = (id: string, todoListId: string) => {
     let task = allTasks[todoListId].find(task => task.id === id)
     if (task) {
@@ -48,6 +55,14 @@ function App() {
     if (task) {
       task.title = newTitle
       setAllTasks({ ...allTasks })
+    }
+  }
+
+  const changeTodoListTitle = (todoListId: string, newTitle: string) => {
+    let todoList = todoLists.find(todoList => todoList.id === todoListId)
+    if (todoList) {
+      todoList.title = newTitle
+      setTodoLists([...todoLists])
     }
   }
 
@@ -71,14 +86,6 @@ function App() {
 
   const addTodoList = (listTitle: string) => {
     setTodoLists([{ id: v1(), title: listTitle, filter: "all" }, ...todoLists])
-  }
-
-  const changeTodoListTitle = (todoListId: string, newTitle: string) => {
-    let todoList = todoLists.find(todoList => todoList.id === todoListId)
-    if (todoList) {
-      todoList.title = newTitle
-      setTodoLists([...todoLists])
-    }
   }
 
   return (
@@ -109,6 +116,7 @@ function App() {
             filter={todoList.filter}
             changeTask={changeTask}
             removeTask={removeTask}
+            removeTodoList={removeTodoList}
             changeFilter={changeFilter}
             addTask={addTask}
             changeIsDown={changeIsDown}
