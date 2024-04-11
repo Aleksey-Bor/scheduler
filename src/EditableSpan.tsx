@@ -31,6 +31,6 @@ export function EditableSpan(props: EditableSpanPropsType) {
       autoFocus
     />
   ) : (
-    <span onDoubleClick={activateEditableMode}>{props.title}</span>
+    <span className="editable" onDoubleClick={activateEditableMode}>{props.title}</span>
   );
 }

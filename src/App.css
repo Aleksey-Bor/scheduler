@@ -40,3 +40,7 @@ li {
 .completed {
   opacity: 0.5;
 }
+
+.editable {
+  cursor: pointer;
+}
