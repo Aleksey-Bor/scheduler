@@ -35,6 +35,6 @@ export function EditableSpan(props: EditableSpanPropsType) {
       variant="standard"
     />
   ) : (
-    <span className="editable" onDoubleClick={activateEditableMode}>{props.title}</span>
+    <span className="editable" onDoubleClick={activateEditableMode} title='Изменить - двойной клик.'>{props.title}</span>
   );
 }
