@@ -3,7 +3,7 @@ import './App.css';
 import { TaskType, TodoList } from './TodoList';
 import { v1 } from 'uuid';
 import { AddItemForm } from './AddItemForm';
-import { Box, Grid, Paper } from '@mui/material';
+import { Box, Grid, Paper, /* makeStyles */ } from '@mui/material';
 
 
 
@@ -113,7 +113,7 @@ function App() {
             }
 
             return <Grid sm={12} md={6} lg={4} xl={3} style={{ padding: 8 }}>
-              <Paper elevation={3} style={{ padding: 8 }}>
+              <Paper elevation={3} style={{ padding: 8 }} sx={{ bgcolor: '#fff9c4' }}>
                 <TodoList
                   key={todoList.id}
                   title={todoList.title}

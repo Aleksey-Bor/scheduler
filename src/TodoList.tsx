@@ -52,7 +52,7 @@ export function TodoList(props: PropsTitle) {
   };
 
   return (
-    <div className="list">
+    <div>
       <h2>
         <EditableSpan title={props.title} onChangeTitle={onChangeTitle} />
         <RemoveButton remover={remover} elemId={props.todoListId} />
