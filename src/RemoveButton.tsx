@@ -12,7 +12,7 @@ export function RemoveButton(props: RemoveButtonType) {
     props.remover(props.elemId);
   };
 
-  return <IconButton aria-label="delete">
-    <Delete onClick={onRemoveHandler} fontSize="small"/>
+  return <IconButton aria-label="delete" onClick={onRemoveHandler}>
+    <Delete  fontSize="small"/>
   </IconButton>
 }

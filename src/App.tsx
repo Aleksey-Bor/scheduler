@@ -112,10 +112,9 @@ function App() {
               tasksForTodoList = []
             }
 
-            return <Grid sm={12} md={6} lg={4} xl={3} style={{ padding: 8 }}>
+            return <Grid item key={todoList.id} sm={12} md={6} lg={4} xl={3} style={{ padding: 8 }}>
               <Paper elevation={3} style={{ padding: 8 }} sx={{ bgcolor: '#fff9c4' }}>
-                <TodoList
-                  key={todoList.id}
+                <TodoList                  
                   title={todoList.title}
                   todoListId={todoList.id}
                   tasks={tasksForTodoList}
