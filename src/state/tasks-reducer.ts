@@ -1,15 +1,20 @@
 import { TaskStateType } from "../App";
 
+enum ActionTypes {
+  REMOVE_TASKS = "REMOVE-TASKS",
+  // другие типы действий...
+}
+
 type RemoveTasksActionType = {
-  type: "REMOVE-TASKS";
+  type: ActionTypes.REMOVE_TASKS;
   todoListId: string;
 };
 
 type ActionType = RemoveTasksActionType;
 
-export const RemoveTaskAC = (todolistId: string): ActionType => ({
-  type: "REMOVE-TASKS",
-  todoListId: todolistId,
+export const RemoveTaskAC = (todoListId: string): ActionType => ({
+  type: ActionTypes.REMOVE_TASKS,
+  todoListId: todoListId,
 });
 
 export const tasksReducer = (
@@ -17,10 +22,10 @@ export const tasksReducer = (
   action: ActionType
 ): TaskStateType => {
   switch (action.type) {
-    case "REMOVE-TASKS": {
-      let newTasks = {...state}
-      delete newTasks[action.todoListId]
-      return newTasks
+    case ActionTypes.REMOVE_TASKS: {
+      let newTasks = { ...state };
+      delete newTasks[action.todoListId];
+      return newTasks;
     }
     default:
       throw new Error("I do not understand this action type");
