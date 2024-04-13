@@ -4,11 +4,9 @@ import { TaskType, TodoList } from './TodoList';
 import { v1 } from 'uuid';
 import { AddItemForm } from './AddItemForm';
 import { Box, Grid, Paper, /* makeStyles */ } from '@mui/material';
-
-
-
+import { RemoveTodolistAC, todolistsReducer } from './state/totolists-reducer';
 export type FilterValuesType = "all" | "active" | "completed"
-type TodoListType = { id: string, title: string, filter: FilterValuesType }
+export type TodoListType = { id: string, title: string, filter: FilterValuesType }
 type TaskStateType = { [key: string]: Array<TaskType> }
 
 function App() {
@@ -39,8 +37,12 @@ function App() {
   }
 
   const removeTodoList = (elemId: string) => {
-    let newTodoLists = todoLists.filter(todoList => todoList.id !== elemId)
-    setTodoLists([...newTodoLists])
+    const action = RemoveTodolistAC(elemId);
+    setTodoLists(todolistsReducer(todoLists, action));
+    
+    let newTasks = { ...allTasks }
+    delete newTasks[elemId]
+    setAllTasks({ ...newTasks })
   }
 
   const changeIsDown = (id: string, todoListId: string) => {
@@ -114,7 +116,7 @@ function App() {
 
             return <Grid item key={todoList.id} sm={12} md={6} lg={4} xl={3} style={{ padding: 8 }}>
               <Paper elevation={3} style={{ padding: 8 }} sx={{ bgcolor: '#fff9c4' }}>
-                <TodoList                  
+                <TodoList
                   title={todoList.title}
                   todoListId={todoList.id}
                   tasks={tasksForTodoList}
