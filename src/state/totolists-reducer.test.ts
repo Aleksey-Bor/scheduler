@@ -1,11 +1,8 @@
 import { v1 } from "uuid";
-import { TodoListType } from "../App";
+import { TodoListType, todoListId1, todoListId2 } from "../App";
 import { RemoveTodolistAC, todolistsReducer } from "./totolists-reducer";
 
 test("should remove correct todolist", () => {
-  const todoListId1 = v1();
-  const todoListId2 = v1();
-
   const startState: Array<TodoListType> = [
     { id: todoListId1, title: "Что сделать", filter: "all" },
     { id: todoListId2, title: "Что купить", filter: "all" },

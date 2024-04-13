@@ -3,15 +3,18 @@ import './App.css';
 import { TaskType, TodoList } from './TodoList';
 import { v1 } from 'uuid';
 import { AddItemForm } from './AddItemForm';
-import { Box, Grid, Paper, /* makeStyles */ } from '@mui/material';
+import { Box, Grid, Paper } from '@mui/material';
 import { RemoveTodolistAC, todolistsReducer } from './state/totolists-reducer';
+import { RemoveTaskAC, tasksReducer } from './state/tasks-reducer';
+
 export type FilterValuesType = "all" | "active" | "completed"
 export type TodoListType = { id: string, title: string, filter: FilterValuesType }
-type TaskStateType = { [key: string]: Array<TaskType> }
+export type TaskStateType = { [key: string]: Array<TaskType> }
+
+export const todoListId1 = v1()
+export const todoListId2 = v1()
 
 function App() {
-  const todoListId1 = v1()
-  const todoListId2 = v1()
 
   let [allTasks, setAllTasks] = useState<TaskStateType>({
     [todoListId1]: [
@@ -37,12 +40,11 @@ function App() {
   }
 
   const removeTodoList = (elemId: string) => {
-    const action = RemoveTodolistAC(elemId);
-    setTodoLists(todolistsReducer(todoLists, action));
-    
-    let newTasks = { ...allTasks }
-    delete newTasks[elemId]
-    setAllTasks({ ...newTasks })
+    let action = RemoveTodolistAC(elemId)
+    setTodoLists(todolistsReducer(todoLists, action))
+
+    let action2 = RemoveTaskAC(elemId)
+    setAllTasks(tasksReducer(allTasks, action2))
   }
 
   const changeIsDown = (id: string, todoListId: string) => {
