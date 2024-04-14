@@ -5,7 +5,7 @@ import { v1 } from 'uuid';
 import { AddItemForm } from './AddItemForm';
 import { Box, Grid, Paper } from '@mui/material';
 import { RemoveTodolistAC, todolistsReducer } from './state/totolists-reducer';
-import { RemoveTaskAC, tasksReducer } from './state/tasks-reducer';
+import { ChangeIsDoneTaskAC, ChangeTitleTaskAC, RemoveTaskAC, RemoveTasksAC, tasksReducer } from './state/tasks-reducer';
 
 export type FilterValuesType = "all" | "active" | "completed"
 export type TodoListType = { id: string, title: string, filter: FilterValuesType }
@@ -35,32 +35,29 @@ function App() {
   ])
 
   const removeTask = (id: string, todoListId: string) => {
-    let newTasks = allTasks[todoListId].filter(task => task.id !== id)
-    setAllTasks({ ...allTasks, [todoListId]: newTasks })
+    let action = RemoveTaskAC(todoListId, id)
+    setAllTasks(allTasks => {
+      let newTasks = tasksReducer(allTasks, action)[todoListId]
+      return { ...allTasks, [todoListId]: newTasks }
+    })
   }
 
   const removeTodoList = (elemId: string) => {
     let action = RemoveTodolistAC(elemId)
     setTodoLists(todolistsReducer(todoLists, action))
 
-    let action2 = RemoveTaskAC(elemId)
+    let action2 = RemoveTasksAC(elemId)
     setAllTasks(tasksReducer(allTasks, action2))
   }
 
   const changeIsDown = (id: string, todoListId: string) => {
-    let task = allTasks[todoListId].find(task => task.id === id)
-    if (task) {
-      task.isDone = !task.isDone
-      setAllTasks({ ...allTasks })
-    }
+    let action = ChangeIsDoneTaskAC(todoListId, id)
+    setAllTasks(tasksReducer(allTasks, action))
   }
 
   const changeTask = (taskId: string, todoListId: string, newTitle: string) => {
-    let task = allTasks[todoListId].find(task => task.id === taskId)
-    if (task) {
-      task.title = newTitle
-      setAllTasks({ ...allTasks })
-    }
+    let action = ChangeTitleTaskAC(todoListId, taskId, newTitle)
+    setAllTasks(tasksReducer(allTasks, action))
   }
 
   const changeTodoListTitle = (todoListId: string, newTitle: string) => {
