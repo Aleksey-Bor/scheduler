@@ -1,6 +1,7 @@
 import { v1 } from "uuid";
 import { TaskStateType, todoListId1, todoListId2 } from "../App";
 import {
+  AddTaskAC,
   ChangeIsDoneTaskAC,
   ChangeTitleTaskAC,
   RemoveTaskAC,
@@ -89,4 +90,15 @@ test("The title of the correct task in the correct to-do list should change to t
       expect(startState[todoListId]).toEqual(endState[todoListId]);
     }
   });
+});
+
+test("A new task with a title should be added to the beginning of the correct to-do list", () => {
+  const startState = getStartState();
+
+  const action = AddTaskAC(todoListId2, "New Task");
+  const endState = tasksReducer(startState, action);
+
+  expect(endState[todoListId2].length).toBe(startState[todoListId2].length + 1);
+  expect(endState[todoListId2][0].title).toBe("New Task");
+  expect(endState[todoListId1].length).toBe(startState[todoListId1].length);
 });

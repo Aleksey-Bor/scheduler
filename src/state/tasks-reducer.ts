@@ -1,11 +1,13 @@
 import { TaskType } from "./../TodoList";
 import { TaskStateType } from "../App";
+import { v1 } from "uuid";
 
 enum ActionTypes {
-  REMOVE_TASKS = "REMOVE-TASKS",
-  REMOVE_TASK = "REMOVE-TASK",
-  CHANGE_IS_DONE_TASK = "CHANGE-IS-DONE-TASK",
-  CHANGE_TITLE_TASK = "CHANGE-TITLE-TASK",
+  REMOVE_TASKS = "REMOVE_TASKS",
+  REMOVE_TASK = "REMOVE_TASK",
+  CHANGE_IS_DONE_TASK = "CHANGE_IS_DONE_TASK",
+  CHANGE_TITLE_TASK = "CHANGE_TITLE_TASK",
+  ADD_TASK = "ADD_TASK",
   // другие типы действий...
 }
 
@@ -33,13 +35,20 @@ type ChangeTitleTaskActionType = {
   newTitle: string;
 };
 
+type AddTaskActionType = {
+  type: ActionTypes.ADD_TASK;
+  todoListId: string;
+  taskTitle: string;
+};
+
 type ActionType =
   | RemoveTasksActionType
   | RemoveTaskActionType
   | ChangeIsDownTaskActionType
-  | ChangeTitleTaskActionType;
+  | ChangeTitleTaskActionType
+  | AddTaskActionType;
 
-export const RemoveTasksAC = (todoListId: string): ActionType => ({
+export const RemoveTasksAC = (todoListId: string): RemoveTasksActionType => ({
   type: ActionTypes.REMOVE_TASKS,
   todoListId: todoListId,
 });
@@ -47,7 +56,7 @@ export const RemoveTasksAC = (todoListId: string): ActionType => ({
 export const RemoveTaskAC = (
   todoListId: string,
   taskId: string
-): ActionType => ({
+): RemoveTaskActionType => ({
   type: ActionTypes.REMOVE_TASK,
   todoListId: todoListId,
   taskId: taskId,
@@ -56,7 +65,7 @@ export const RemoveTaskAC = (
 export const ChangeIsDoneTaskAC = (
   todoListId: string,
   taskId: string
-): ActionType => ({
+): ChangeIsDownTaskActionType => ({
   type: ActionTypes.CHANGE_IS_DONE_TASK,
   todoListId: todoListId,
   taskId: taskId,
@@ -66,11 +75,20 @@ export const ChangeTitleTaskAC = (
   todoListId: string,
   taskId: string,
   newTitle: string
-): ActionType => ({
+): ChangeTitleTaskActionType => ({
   type: ActionTypes.CHANGE_TITLE_TASK,
   todoListId: todoListId,
   taskId: taskId,
   newTitle: newTitle,
+});
+
+export const AddTaskAC = (
+  todoListId: string,
+  taskTitle: string
+): AddTaskActionType => ({
+  type: ActionTypes.ADD_TASK,
+  todoListId: todoListId,
+  taskTitle: taskTitle,
 });
 
 export const tasksReducer = (
@@ -111,6 +129,13 @@ export const tasksReducer = (
         task.title = action.newTitle;
       }
       return { ...newTask };
+    }
+    case ActionTypes.ADD_TASK: {
+      let newTask = { id: v1(), title: action.taskTitle, isDone: false };
+      let tasksForTodoList = state[action.todoListId]
+        ? [newTask, ...state[action.todoListId]]
+        : [newTask];
+      return { ...state, [action.todoListId]: tasksForTodoList };
     }
     default:
       throw new Error("I do not understand this action type");
