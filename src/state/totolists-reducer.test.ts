@@ -75,6 +75,7 @@ test("The new to-do list should be added to the beginning of the to-do list arra
   const endState = todoListsReducer(startState, action);
 
   expect(endState[0].title).toBe("New To-do list");
+  expect(endState[0].id).toBeTruthy();
   expect(endState[1].id).toBeTruthy();
   expect(endState[2].id).toBeTruthy();
   expect(endState[0].filter).toBe("all");
