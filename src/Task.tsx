@@ -4,7 +4,7 @@ import { EditableSpan } from "./EditableSpan";
 import { RemoveButton } from "./RemoveButton";
 import { Checkbox } from "@mui/material";
 
-type TaskProps = {
+export type TaskProps = {
   tasks: Array<TaskType>;
   todoListId: string;
   removeTask: (id: string, todoListId: string) => void;
