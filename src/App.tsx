@@ -35,46 +35,36 @@ function App() {
   ])
 
   const removeTask = (id: string, todoListId: string) => {
-    const action = RemoveTaskAC(todoListId, id)
-    dispatchToTasksReducer(action)
+    dispatchToTasksReducer(RemoveTaskAC(todoListId, id))
   }
 
   const changeIsDown = (id: string, todoListId: string) => {
-    const action = ChangeIsDoneTaskAC(todoListId, id)
-    dispatchToTasksReducer(action)
+    dispatchToTasksReducer(ChangeIsDoneTaskAC(todoListId, id))
   }
 
   const changeTask = (taskId: string, todoListId: string, newTitle: string) => {
-    const action = ChangeTitleTaskAC(todoListId, taskId, newTitle)
-    dispatchToTasksReducer(action)
+    dispatchToTasksReducer(ChangeTitleTaskAC(todoListId, taskId, newTitle))
   }
 
   const addTask = (taskTitle: string, todoListId: string) => {
-    const action = AddTaskAC(todoListId, taskTitle)
-    dispatchToTasksReducer(action)
+    dispatchToTasksReducer(AddTaskAC(todoListId, taskTitle))
   };
 
   const removeTodoList = (elemId: string) => {
-    const action = RemoveTodoListAC(elemId)
-    dispatchTodoListsReducer(action)
-
-    const action2 = RemoveTasksAC(elemId)
-    dispatchToTasksReducer(action2)
+    dispatchTodoListsReducer(RemoveTodoListAC(elemId))
+    dispatchToTasksReducer(RemoveTasksAC(elemId))
   }
 
   const changeTodoListTitle = (todoListId: string, newTitle: string) => {
-    const action = ChangeTitleTodoListAC(todoListId, newTitle)
-    dispatchTodoListsReducer(action)
+    dispatchTodoListsReducer(ChangeTitleTodoListAC(todoListId, newTitle))
   }
 
   const changeFilter = (filter: FilterValuesType, todoListId: string) => {
-    const action = ChangeFilterTodoListAC(todoListId, filter)
-    dispatchTodoListsReducer(action)
+    dispatchTodoListsReducer(ChangeFilterTodoListAC(todoListId, filter))
   }
 
   const addTodoList = (listTitle: string) => {
-    const action = AddTodoListAC(listTitle)
-    dispatchTodoListsReducer(action)
+    dispatchTodoListsReducer(AddTodoListAC(listTitle))
   }
 
   return (
