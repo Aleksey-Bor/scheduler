@@ -138,6 +138,6 @@ export const tasksReducer = (
       return { ...state, [action.todoListId]: tasksForTodoList };
     }
     default:
-      throw new Error("I do not understand this action type");
+      return state;
   }
 };

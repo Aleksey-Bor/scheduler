@@ -3,7 +3,7 @@ import App, { FilterValuesType } from './App';
 import { TodoList } from './TodoList';
 
 
-describe("addTask function", () => {
+describe("App component", () => {
   test('renders without crashing', () => {
     render(<App />);
     const linkElement = screen.getByText(/Добавьте новый список дел/i);

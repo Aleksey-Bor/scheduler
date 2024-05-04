@@ -94,6 +94,6 @@ export const todoListsReducer = (
       return [{ id: v1(), title: action.listTitle, filter: "all" }, ...state];
     }
     default:
-      throw new Error("I do not understand this action type");
+      return state;
   }
 };
