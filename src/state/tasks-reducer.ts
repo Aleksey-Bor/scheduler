@@ -1,6 +1,7 @@
 import { TaskType } from "./../TodoList";
 import { TaskStateType } from "../App";
 import { v1 } from "uuid";
+import { Action } from "@reduxjs/toolkit";
 
 enum ActionTypes {
   REMOVE_TASKS = "REMOVE_TASKS",
@@ -92,28 +93,29 @@ export const AddTaskAC = (
 });
 
 export const tasksReducer = (
-  state: TaskStateType,
-  action: ActionType
+  state: TaskStateType = {},
+  action: Action
 ): TaskStateType => {
-  switch (action.type) {
+  const typedAction = action as ActionType;
+  switch (typedAction.type) {
     case ActionTypes.REMOVE_TASKS: {
       let newTasks = { ...state };
-      delete newTasks[action.todoListId];
+      delete newTasks[typedAction.todoListId];
       return newTasks;
     }
     case ActionTypes.REMOVE_TASK: {
       let newTasks = { ...state };
-      if ("taskId" in action) {
-        newTasks[action.todoListId] = state[action.todoListId].filter(
-          (task) => task.id !== action.taskId
+      if ("taskId" in typedAction) {
+        newTasks[typedAction.todoListId] = state[typedAction.todoListId].filter(
+          (task) => task.id !== typedAction.taskId
         );
       }
       return newTasks;
     }
     case ActionTypes.CHANGE_IS_DONE_TASK: {
       let newTask = JSON.parse(JSON.stringify(state));
-      let task = newTask[action.todoListId].find(
-        (task: TaskType) => task.id === action.taskId
+      let task = newTask[typedAction.todoListId].find(
+        (task: TaskType) => task.id === typedAction.taskId
       );
       if (task) {
         task.isDone = !task.isDone;
@@ -122,20 +124,20 @@ export const tasksReducer = (
     }
     case ActionTypes.CHANGE_TITLE_TASK: {
       let newTask = JSON.parse(JSON.stringify(state));
-      let task = newTask[action.todoListId].find(
-        (task: TaskType) => task.id === action.taskId
+      let task = newTask[typedAction.todoListId].find(
+        (task: TaskType) => task.id === typedAction.taskId
       );
       if (task) {
-        task.title = action.newTitle;
+        task.title = typedAction.newTitle;
       }
       return { ...newTask };
     }
     case ActionTypes.ADD_TASK: {
-      let newTask = { id: v1(), title: action.taskTitle, isDone: false };
-      let tasksForTodoList = state[action.todoListId]
-        ? [newTask, ...state[action.todoListId]]
+      let newTask = { id: v1(), title: typedAction.taskTitle, isDone: false };
+      let tasksForTodoList = state[typedAction.todoListId]
+        ? [newTask, ...state[typedAction.todoListId]]
         : [newTask];
-      return { ...state, [action.todoListId]: tasksForTodoList };
+      return { ...state, [typedAction.todoListId]: tasksForTodoList };
     }
     default:
       return state;

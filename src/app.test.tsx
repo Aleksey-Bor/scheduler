@@ -1,11 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import App, { FilterValuesType } from './App';
 import { TodoList } from './TodoList';
+import { Provider } from 'react-redux';
+import store from './state/store';
 
 
 describe("App component", () => {
   test('renders without crashing', () => {
-    render(<App />);
+    render(<Provider store={store} ><App /></Provider>);
     const linkElement = screen.getByText(/Добавьте новый список дел/i);
     expect(linkElement).toBeInTheDocument();
   });

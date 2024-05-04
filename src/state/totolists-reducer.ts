@@ -1,3 +1,4 @@
+import { Action } from "@reduxjs/toolkit";
 import { v1 } from "uuid";
 import { FilterValuesType, TodoListType } from "../App";
 
@@ -65,17 +66,18 @@ export const AddTodoListAC = (listTitle: string): AddActionType => ({
 });
 
 export const todoListsReducer = (
-  state: Array<TodoListType>,
-  action: ActionType
+  state: Array<TodoListType> = [],
+  action:  Action
 ): Array<TodoListType> => {
-  switch (action.type) {
+  const typedAction = action as ActionType;
+  switch (typedAction.type) {
     case ActionTypes.REMOVE_TODOLIST: {
-      return state.filter((todoList) => todoList.id !== action.todoListId);
+      return state.filter((todoList) => todoList.id !== typedAction.todoListId);
     }
     case ActionTypes.CHANGE_TITLE_TODOLIST: {
       const newState = state.map((todoList) => {
-        if (todoList.id === action.todoListId) {
-          return { ...todoList, title: action.newTitle };
+        if (todoList.id === typedAction.todoListId) {
+          return { ...todoList, title: typedAction.newTitle };
         }
         return todoList;
       });
@@ -83,15 +85,15 @@ export const todoListsReducer = (
     }
     case ActionTypes.CHANGE_FILTER_TODOLIST: {
       const newState = state.map((todoList) => {
-        if (todoList.id === action.todoListId) {
-          return { ...todoList, filter: action.newFilter };
+        if (todoList.id === typedAction.todoListId) {
+          return { ...todoList, filter: typedAction.newFilter };
         }
         return todoList;
       });
       return newState;
     }
     case ActionTypes.ADD_TODOLIST: {
-      return [{ id: v1(), title: action.listTitle, filter: "all" }, ...state];
+      return [{ id: v1(), title: typedAction.listTitle, filter: "all" }, ...state];
     }
     default:
       return state;
