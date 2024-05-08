@@ -7,6 +7,7 @@ import { AddTodoListAC, ChangeFilterTodoListAC, ChangeTitleTodoListAC, RemoveTod
 import { AddTaskAC, ChangeIsDoneTaskAC, ChangeTitleTaskAC, RemoveTaskAC, RemoveTasksAC, tasksReducer } from './state/tasks-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, UnknownAction } from '@reduxjs/toolkit';
+import React from 'react';
 
 export type FilterValuesType = "all" | "active" | "completed"
 export type TodoListType = { id: string, title: string, filter: FilterValuesType }
@@ -23,6 +24,9 @@ function App() {
   const allTasks = useSelector((state: RootState) => state.tasks)
   const todoLists = useSelector((state: RootState) => state.todoLists)
   const dispatch: Dispatch<UnknownAction> = useDispatch()
+
+  
+  console.log("App is called")
 
   const removeTask = (id: string, todoListId: string) => {
     dispatch(RemoveTaskAC(todoListId, id))
@@ -104,4 +108,4 @@ function App() {
   );
 }
 
-export default App;
+export default React.memo(App);

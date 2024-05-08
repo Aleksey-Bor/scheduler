@@ -6,37 +6,39 @@ type EditableSpanPropsType = {
   onChangeTitle: (newTitle: string) => void
 };
 
-export function EditableSpan(props: EditableSpanPropsType) {
-  let [editableMode, setEditableMode] = useState(false)
-  let [newTitle, setNewTitle] = useState("")
-
-  const activateEditableMode = () => {
-    setEditableMode(true)
-    setNewTitle(props.title)
-  }
-
-  const activateViewMode = () => {
-    if (newTitle) {
-      setEditableMode(false)
-      props.onChangeTitle(newTitle)
+export const EditableSpan = React.memo(
+  (props: EditableSpanPropsType) => {
+    let [editableMode, setEditableMode] = useState(false)
+    let [newTitle, setNewTitle] = useState("")
+  
+    const activateEditableMode = () => {
+      setEditableMode(true)
+      setNewTitle(props.title)
     }
+  
+    const activateViewMode = () => {
+      if (newTitle) {
+        setEditableMode(false)
+        props.onChangeTitle(newTitle)
+      }
+    }
+  
+    const onChangeTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
+      setNewTitle(event.currentTarget.value)
+    }
+  
+    return editableMode ? (
+      <TextField
+        value={newTitle}
+        onChange={onChangeTitleHandler}
+        onBlur={activateViewMode}
+        autoFocus
+        variant="standard"
+      />
+    ) : (
+      <span className="editable"
+        onDoubleClick={activateEditableMode}
+        title='Изменить - двойной клик.'>{props.title}</span>
+    );
   }
-
-  const onChangeTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewTitle(event.currentTarget.value)
-  }
-
-  return editableMode ? (
-    <TextField
-      value={newTitle}
-      onChange={onChangeTitleHandler}
-      onBlur={activateViewMode}
-      autoFocus
-      variant="standard"
-    />
-  ) : (
-    <span className="editable"
-      onDoubleClick={activateEditableMode}
-      title='Изменить - двойной клик.'>{props.title}</span>
-  );
-}
+) 

@@ -6,42 +6,46 @@ type AddItemFormType = {
   addItem: (title: string) => void;
 };
 
-export function AddItemForm(props: AddItemFormType) {
-  const [error, setError] = useState<string | null>(null);
-  const [newTitle, setNewTitle] = useState("");
-
-  const onNewItemChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewTitle(event.currentTarget.value);
-    setError(null);
-  };
-
-  const onAddItemKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      addItemHandler();
-    }
-  };
-
-  const addItemHandler = () => {
-    if (newTitle.trim() !== "") {
-      props.addItem(newTitle);
-      setNewTitle("");
-    } else {
-      setError("Поле обязательно!");
-      setNewTitle("");
-    }
-  };
-
-  return <div>
-    <TextField
-      onChange={onNewItemChangeHandler}
-      onKeyDown={onAddItemKeyDownHandler}
-      value={newTitle}
-      label="Введите заголовок"
-      variant="outlined"
-      error={!!error}
-      helperText={error} />
-    <IconButton onClick={addItemHandler} color='primary'>
-      <AddCircleOutlineRounded fontSize="large" />
-    </IconButton>
-  </div>;
-}
+export const AddItemForm = React.memo(
+  (props: AddItemFormType) => {
+    const [error, setError] = useState<string | null>(null);
+    const [newTitle, setNewTitle] = useState("");
+  
+    console.log("AddItemForm is called")
+  
+    const onNewItemChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+      setNewTitle(event.currentTarget.value);
+      setError(null);
+    };
+  
+    const onAddItemKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'Enter') {
+        addItemHandler();
+      }
+    };
+  
+    const addItemHandler = () => {
+      if (newTitle.trim() !== "") {
+        props.addItem(newTitle);
+        setNewTitle("");
+      } else {
+        setError("Поле обязательно!");
+        setNewTitle("");
+      }
+    };
+  
+    return <div>
+      <TextField
+        onChange={onNewItemChangeHandler}
+        onKeyDown={onAddItemKeyDownHandler}
+        value={newTitle}
+        label="Введите заголовок"
+        variant="outlined"
+        error={!!error}
+        helperText={error} />
+      <IconButton onClick={addItemHandler} color='primary'>
+        <AddCircleOutlineRounded fontSize="large" />
+      </IconButton>
+    </div>;
+  }
+)

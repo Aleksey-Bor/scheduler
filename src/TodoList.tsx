@@ -26,67 +26,72 @@ type PropsTitle = {
   changeTodoListTitle: (todoListId: string, newTitle: string) => void;
 };
 
-export function TodoList(props: PropsTitle) {
-  const onAllFilterClickHandler = () => {
-    props.changeFilter("all", props.todoListId);
-  };
+export const TodoList = React.memo(
+  (props: PropsTitle) => {
 
-  const onActiveFilterClickHandler = () => {
-    props.changeFilter("active", props.todoListId);
-  };
+    console.log("TodoList is called")
 
-  const onCompletedFilterClickHandler = () => {
-    props.changeFilter("completed", props.todoListId);
-  };
+    const onAllFilterClickHandler = () => {
+      props.changeFilter("all", props.todoListId);
+    };
 
-  const addTask = (taskTitle: string) => {
-    props.addTask(taskTitle, props.todoListId);
-  };
+    const onActiveFilterClickHandler = () => {
+      props.changeFilter("active", props.todoListId);
+    };
 
-  const onChangeTitle = (newTitle: string) => {
-    props.changeTodoListTitle(props.todoListId, newTitle);
-  };
+    const onCompletedFilterClickHandler = () => {
+      props.changeFilter("completed", props.todoListId);
+    };
 
-  const remover = (elemId: string) => {
-    props.removeTodoList(elemId)
-  };
+    const addTask = (taskTitle: string) => {
+      props.addTask(taskTitle, props.todoListId);
+    };
 
-  return (
-    <div>
-      <h2>
-        <EditableSpan title={props.title} onChangeTitle={onChangeTitle} />
-        <RemoveButton remover={remover} elemId={props.todoListId} />
-      </h2>
-      <AddItemForm addItem={addTask} />
-      <ul>
-        <Task
-          tasks={props.tasks}
-          todoListId={props.todoListId}
-          removeTask={props.removeTask}
-          changeIsDown={props.changeIsDown}
-          changeTask={props.changeTask}
-        />
-      </ul>
+    const onChangeTitle = (newTitle: string) => {
+      props.changeTodoListTitle(props.todoListId, newTitle);
+    };
+
+    const remover = (elemId: string) => {
+      props.removeTodoList(elemId)
+    };
+
+    return (
       <div>
-        <Button
-          variant={props.filter === "all" ? "contained" : "text"}
-          onClick={onAllFilterClickHandler}
-        >
-          Все
-        </Button>
-        <Button
-          variant={props.filter === "active" ? "contained" : "text"}
-          onClick={onActiveFilterClickHandler}
-        >
-          Активные
-        </Button>
-        <Button
-          variant={props.filter === "completed" ? "contained" : "text"}
-          onClick={onCompletedFilterClickHandler}
-        >
-          Завершенные
-        </Button>
+        <h2>
+          <EditableSpan title={props.title} onChangeTitle={onChangeTitle} />
+          <RemoveButton remover={remover} elemId={props.todoListId} />
+        </h2>
+        <AddItemForm addItem={addTask} />
+        <ul>
+          <Task
+            tasks={props.tasks}
+            todoListId={props.todoListId}
+            removeTask={props.removeTask}
+            changeIsDown={props.changeIsDown}
+            changeTask={props.changeTask}
+          />
+        </ul>
+        <div>
+          <Button
+            variant={props.filter === "all" ? "contained" : "text"}
+            onClick={onAllFilterClickHandler}
+          >
+            Все
+          </Button>
+          <Button
+            variant={props.filter === "active" ? "contained" : "text"}
+            onClick={onActiveFilterClickHandler}
+          >
+            Активные
+          </Button>
+          <Button
+            variant={props.filter === "completed" ? "contained" : "text"}
+            onClick={onCompletedFilterClickHandler}
+          >
+            Завершенные
+          </Button>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
+)

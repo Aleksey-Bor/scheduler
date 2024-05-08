@@ -12,44 +12,48 @@ export type TaskProps = {
   changeTask: (taskId: string, todoListId: string, newTitle: string) => void;
 };
 
-export function Task(props: TaskProps) {
+export const Task = React.memo(
+  (props: TaskProps) => {
+    
+    const remover = (elemId: string) => {
+      props.removeTask(elemId, props.todoListId)
+    }
   
-  const remover = (elemId: string) => {
-    props.removeTask(elemId, props.todoListId)
+    console.log("Task is called")
+    
+    return (
+      <>
+        {props.tasks &&
+          props.tasks.map((task) => {
+            const onChangeTitle = (newTitle: string) => {
+              props.changeTask(task.id, props.todoListId, newTitle);
+            };
+            
+            const onSetIsDownHandler = () => {
+              props.changeIsDown(task.id, props.todoListId);
+            };
+  
+            return (
+              <li className={task.isDone ? "completed" : ""} key={task.id}>
+                <Checkbox
+                  onChange={onSetIsDownHandler}
+                  color="success"
+                  checked={task.isDone}
+                />
+                <EditableSpan
+                  title={task.title}
+                  onChangeTitle={onChangeTitle}
+                />
+                <RemoveButton 
+                  elemId={task.id}
+                  remover={remover} />
+              </li>
+            );
+          })}
+      </>
+    );
   }
-  
-  return (
-    <>
-      {props.tasks &&
-        props.tasks.map((task) => {
-          const onChangeTitle = (newTitle: string) => {
-            props.changeTask(task.id, props.todoListId, newTitle);
-          };
-          
-          const onSetIsDownHandler = () => {
-            props.changeIsDown(task.id, props.todoListId);
-          };
-
-          return (
-            <li className={task.isDone ? "completed" : ""} key={task.id}>
-              <Checkbox
-                onChange={onSetIsDownHandler}
-                color="success"
-                checked={task.isDone}
-              />
-              <EditableSpan
-                title={task.title}
-                onChangeTitle={onChangeTitle}
-              />
-              <RemoveButton 
-                elemId={task.id}
-                remover={remover} />
-            </li>
-          );
-        })}
-    </>
-  );
-}
+)
 
 
 
