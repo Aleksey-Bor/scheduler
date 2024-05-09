@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Task } from "./Task";
 import { AddItemForm } from "./AddItemForm";
 import { FilterValuesType } from "./App";
@@ -43,9 +43,11 @@ export const TodoList = React.memo(
       props.changeFilter("completed", props.todoListId);
     };
 
-    const addTask = (taskTitle: string) => {
-      props.addTask(taskTitle, props.todoListId);
-    };
+    const addTask = useCallback(
+      (taskTitle: string) => {
+        props.addTask(taskTitle, props.todoListId);
+      }, [props.addTask, props.todoListId]
+    )
 
     const onChangeTitle = (newTitle: string) => {
       props.changeTodoListTitle(props.todoListId, newTitle);
