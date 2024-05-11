@@ -5,6 +5,7 @@ import { FilterValuesType } from "./App";
 import { EditableSpan } from "./EditableSpan";
 import { RemoveButton } from "./RemoveButton";
 import { Button } from "@mui/material";
+import _ from "lodash";
 
 export type TaskType = {
   id: string;
@@ -19,7 +20,7 @@ type PropsTitle = {
   filter: FilterValuesType;
   changeTask: (taskId: string, todoListId: string, newTitle: string) => void;
   removeTask: (id: string, todoListId: string) => void;
-  removeTodoList: (elemId: string) => void
+  removeTodoList: (elemId: string) => void;
   changeFilter: (filter: FilterValuesType, todoListId: string) => void;
   addTask: (taskTitle: string, todoListId: string) => void;
   changeIsDown: (id: string, todoListId: string) => void;
@@ -28,8 +29,7 @@ type PropsTitle = {
 
 export const TodoList = React.memo(
   (props: PropsTitle) => {
-
-    console.log("TodoList is called")
+    console.log(`TodoList ${props.title} is called`);
 
     const onAllFilterClickHandler = () => {
       props.changeFilter("all", props.todoListId);
@@ -46,16 +46,23 @@ export const TodoList = React.memo(
     const addTask = useCallback(
       (taskTitle: string) => {
         props.addTask(taskTitle, props.todoListId);
-      }, [props.addTask, props.todoListId]
-    )
+      },
+      [props.addTask, props.todoListId]
+    );
 
-    const onChangeTitle = (newTitle: string) => {
-      props.changeTodoListTitle(props.todoListId, newTitle);
-    };
+    const onChangeTitle = useCallback(
+      (newTitle: string) => {
+        props.changeTodoListTitle(props.todoListId, newTitle);
+      },
+      [props.changeTodoListTitle, props.todoListId]
+    );
 
-    const remover = (elemId: string) => {
-      props.removeTodoList(elemId)
-    };
+    const remover = useCallback(
+      (elemId: string) => {
+        props.removeTodoList(elemId);
+      },
+      [props.removeTodoList]
+    );
 
     return (
       <div>
@@ -95,5 +102,12 @@ export const TodoList = React.memo(
         </div>
       </div>
     );
+  },
+  (prevProps, nextProps) => {
+    return (
+      prevProps.filter === nextProps.filter &&
+      prevProps.title === nextProps.title &&
+      _.isEqual(prevProps.tasks, nextProps.tasks)
+    );
   }
-)
+);

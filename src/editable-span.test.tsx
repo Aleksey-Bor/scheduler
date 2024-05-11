@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { EditableSpan } from './EditableSpan'; 
+import { EditableSpan } from './EditableSpan';
 
 describe('EditableSpan', () => {
   it('renders correctly and switches between view and edit modes', () => {
