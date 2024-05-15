@@ -52,7 +52,11 @@ test("should remove correct task from correct array", () => {
 test("The boolean value of the isDone property of the correct task in the correct to-do list must be reversed.", () => {
   const startState = getStartState();
 
-  const action = ChangeIsDoneTaskAC(todoListId2, startState[todoListId2][1].id);
+  const action = ChangeIsDoneTaskAC(
+    todoListId2,
+    startState[todoListId2][1].id,
+    !startState[todoListId2][1].isDone
+  );
   const endState = tasksReducer(startState, action);
 
   expect(endState[todoListId2][1].isDone).not.toBe(
