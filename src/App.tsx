@@ -51,8 +51,8 @@ function App() {
   );
 
   const changeIsDown = useCallback(
-    (id: string, todoListId: string) => {
-      dispatch(ChangeIsDoneTaskAC(todoListId, id));
+    (id: string, todoListId: string, isDone: boolean) => {
+      dispatch(ChangeIsDoneTaskAC(todoListId, id, isDone));
     },
     [dispatch]
   );

@@ -8,7 +8,7 @@ export type TaskProps = {
   tasks: Array<TaskType>;
   todoListId: string;
   removeTask: (id: string, todoListId: string) => void;
-  changeIsDown: (id: string, todoListId: string) => void;
+  changeIsDown: (id: string, todoListId: string, isDone: boolean) => void;
   changeTask: (taskId: string, todoListId: string, newTitle: string) => void;
 };
 
@@ -31,7 +31,7 @@ export const Task = React.memo((props: TaskProps) => {
           };
 
           const onSetIsDownHandler = () => {
-            props.changeIsDown(task.id, props.todoListId);
+            props.changeIsDown(task.id, props.todoListId, !task.isDone);
           };
 
           return (

@@ -27,6 +27,7 @@ type ChangeIsDownTaskActionType = {
   type: ActionTypes.CHANGE_IS_DONE_TASK;
   todoListId: string;
   taskId: string;
+  isDone: boolean;
 };
 
 type ChangeTitleTaskActionType = {
@@ -65,11 +66,13 @@ export const RemoveTaskAC = (
 
 export const ChangeIsDoneTaskAC = (
   todoListId: string,
-  taskId: string
+  taskId: string,
+  isDone: boolean
 ): ChangeIsDownTaskActionType => ({
   type: ActionTypes.CHANGE_IS_DONE_TASK,
   todoListId: todoListId,
   taskId: taskId,
+  isDone: isDone
 });
 
 export const ChangeTitleTaskAC = (
@@ -118,7 +121,7 @@ export const tasksReducer = (
         (task: TaskType) => task.id === typedAction.taskId
       );
       if (task) {
-        task.isDone = !task.isDone;
+        task.isDone = typedAction.isDone;
       }
       return { ...newTask };
     }
