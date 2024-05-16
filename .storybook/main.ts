@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-webpack5";
+import path from "path";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -10,7 +11,19 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials",
     "@chromatic-com/storybook",
     "@storybook/addon-interactions",
-    "@storybook/addon-mdx-gfm"
+    "@storybook/addon-mdx-gfm",
+    {
+      name: '@storybook/addon-storysource',
+      options: {
+        rule: {
+          test: [/\.stories\.tsx?$/], // Обновлено для TypeScript
+          include: [path.resolve(__dirname, '../src')], // Вы можете указать каталоги
+        },
+        loaderOptions: {
+          prettierConfig: { printWidth: 80, singleQuote: false },
+        },
+      },
+    },
   ],
 
   framework: {
