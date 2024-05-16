@@ -20,8 +20,6 @@ export const Task = React.memo((props: TaskProps) => {
     [props.removeTask, props.todoListId]
   );
 
-  console.log("Task is called");
-
   return (
     <>
       {props.tasks &&

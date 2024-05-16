@@ -6,9 +6,9 @@ export default {
   component: Task,
 };
 
-const callbackRemove = action("Task was deleted");
-const callbackChangeIsDown = action("Task status was changed");
-const callbackChange = action("Task title was changed");
+const callbackRemove = action("The task deleted");
+const callbackChangeIsDown = action("The task status changed");
+const callbackChange = action("The task title changed");
 
 export const TaskExample = (props: any) => {
   return (

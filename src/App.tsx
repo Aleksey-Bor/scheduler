@@ -41,8 +41,6 @@ function App() {
   const todoLists = useSelector((state: RootState) => state.todoLists);
   const dispatch: Dispatch<UnknownAction> = useDispatch();
 
-  console.log("App is called");
-
   const removeTask = useCallback(
     (id: string, todoListId: string) => {
       dispatch(RemoveTaskAC(todoListId, id));

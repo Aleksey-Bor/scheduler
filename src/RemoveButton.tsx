@@ -12,8 +12,6 @@ export const RemoveButton = React.memo((props: RemoveButtonType) => {
     props.remover(props.elemId);
   };
 
-  console.log("RemoveButton is called");
-
   return (
     <IconButton aria-label="delete" onClick={onRemoveHandler}>
       <Delete fontSize="small" />

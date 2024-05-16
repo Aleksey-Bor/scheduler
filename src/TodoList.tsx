@@ -29,8 +29,6 @@ type PropsTitle = {
 
 export const TodoList = React.memo(
   (props: PropsTitle) => {
-    console.log(`TodoList ${props.title} is called`);
-
     const onAllFilterClickHandler = () => {
       props.changeFilter("all", props.todoListId);
     };
