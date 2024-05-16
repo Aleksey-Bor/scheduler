@@ -8,6 +8,6 @@ export default {
 
 const callback = action("The title was changed")
 
-export const AddItemFormExample = () => {
+export const EditableSpanExample = () => {
   return <EditableSpan title={'Hello! I am test task title!'} onChangeTitle={callback}/>;
 };

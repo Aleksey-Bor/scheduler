@@ -8,6 +8,6 @@ export default {
 
 const callback = action("The elem (task or todolist) was deleted")
 
-export const AddItemFormExample = () => {
+export const RemoveButtonExample = () => {
   return <RemoveButton remover={callback} elemId={'elemId1'} />;
 };
