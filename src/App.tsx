@@ -8,17 +8,19 @@ import {
   ChangeFilterTodoListAC,
   ChangeTitleTodoListAC,
   RemoveTodoListAC,
+  SetTodoListsAC,
 } from "./state/todolists-reducer";
 import {
   AddTaskAC,
   ChangeIsDoneTaskAC,
   ChangeTitleTaskAC,
   RemoveTaskAC,
-  RemoveTasksAC, 
+  RemoveTasksAC,
 } from "./state/tasks-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
+import { todoListsAPI } from "./api/todoListsAPI";
 
 export type FilterValuesType = "all" | "active" | "completed";
 export type TodoListType = {
@@ -96,6 +98,13 @@ function App() {
     },
     [dispatch]
   );
+
+  useEffect(() => {
+    todoListsAPI.getTodoLists()
+    // .then(res => console.log(res.data))
+      .then(res => dispatch(SetTodoListsAC(res.data)))
+      
+  })
 
   return (
     <div>
