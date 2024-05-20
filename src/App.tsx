@@ -133,25 +133,19 @@ function App() {
                 xl={3}
                 style={{ padding: 8 }}
               >
-                <Paper
-                  elevation={3}
-                  style={{ padding: 8 }}
-                  sx={{ bgcolor: "#fff9c4" }}
-                >
-                  <TodoList
-                    title={todoList.title}
-                    todoListId={todoList.id}
-                    tasks={tasksForTodoList}
-                    filter={todoList.filter}
-                    changeTask={changeTask}
-                    removeTask={removeTask}
-                    removeTodoList={removeTodoList}
-                    changeFilter={changeFilter}
-                    addTask={addTask}
-                    changeIsDown={changeIsDown}
-                    changeTodoListTitle={changeTodoListTitle}
-                  />
-                </Paper>
+                <TodoList
+                  title={todoList.title}
+                  todoListId={todoList.id}
+                  tasks={tasksForTodoList}
+                  filter={todoList.filter}
+                  changeTask={changeTask}
+                  removeTask={removeTask}
+                  removeTodoList={removeTodoList}
+                  changeFilter={changeFilter}
+                  addTask={addTask}
+                  changeIsDown={changeIsDown}
+                  changeTodoListTitle={changeTodoListTitle}
+                />
               </Grid>
             );
           })}

@@ -4,7 +4,7 @@ import { AddItemForm } from "./AddItemForm";
 import { FilterValuesType } from "./App";
 import { EditableSpan } from "./EditableSpan";
 import { RemoveButton } from "./RemoveButton";
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import _ from "lodash";
 
 export type TaskType = {
@@ -63,42 +63,44 @@ export const TodoList = React.memo(
     );
 
     return (
-      <div>
-        <h2>
-          <EditableSpan title={props.title} onChangeTitle={onChangeTitle} />
-          <RemoveButton remover={remover} elemId={props.todoListId} />
-        </h2>
-        <AddItemForm addItem={addTask} />
-        <ul>
-          <Task
-            tasks={props.tasks}
-            todoListId={props.todoListId}
-            removeTask={props.removeTask}
-            changeIsDown={props.changeIsDown}
-            changeTask={props.changeTask}
-          />
-        </ul>
+      <Paper elevation={3} style={{ padding: 8 }} sx={{ bgcolor: "#fff9c4" }}>
         <div>
-          <Button
-            variant={props.filter === "all" ? "contained" : "text"}
-            onClick={onAllFilterClickHandler}
-          >
-            Все
-          </Button>
-          <Button
-            variant={props.filter === "active" ? "contained" : "text"}
-            onClick={onActiveFilterClickHandler}
-          >
-            Активные
-          </Button>
-          <Button
-            variant={props.filter === "completed" ? "contained" : "text"}
-            onClick={onCompletedFilterClickHandler}
-          >
-            Завершенные
-          </Button>
+          <h2>
+            <EditableSpan title={props.title} onChangeTitle={onChangeTitle} />
+            <RemoveButton remover={remover} elemId={props.todoListId} />
+          </h2>
+          <AddItemForm addItem={addTask} />
+          <ul>
+            <Task
+              tasks={props.tasks}
+              todoListId={props.todoListId}
+              removeTask={props.removeTask}
+              changeIsDown={props.changeIsDown}
+              changeTask={props.changeTask}
+            />
+          </ul>
+          <div>
+            <Button
+              variant={props.filter === "all" ? "contained" : "text"}
+              onClick={onAllFilterClickHandler}
+            >
+              Все
+            </Button>
+            <Button
+              variant={props.filter === "active" ? "contained" : "text"}
+              onClick={onActiveFilterClickHandler}
+            >
+              Активные
+            </Button>
+            <Button
+              variant={props.filter === "completed" ? "contained" : "text"}
+              onClick={onCompletedFilterClickHandler}
+            >
+              Завершенные
+            </Button>
+          </div>
         </div>
-      </div>
+      </Paper>
     );
   },
   (prevProps, nextProps) => {
