@@ -3,7 +3,7 @@ import { TodoList } from "./TodoList";
 import { FilterValuesType } from "./App";
 
 describe("TodoList component", () => {
-  test("renders without crashing and calls changeFilter on filter button click", () => {
+  it("renders without crashing and calls changeFilter on filter button click", () => {
     const mockChangeFilter = jest.fn();
     const props = {
       title: "Test TodoList",

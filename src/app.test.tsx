@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import store from "./state/store";
 
 describe("App component", () => {
-  test("renders without crashing", () => {
+  it("renders without crashing", () => {
     render(
       <Provider store={store}>
         <App />
@@ -15,7 +15,7 @@ describe("App component", () => {
     expect(linkElement).toBeInTheDocument();
   });
 
-  test("checking props transfer to TodoList", () => {
+  it("checking props transfer to TodoList", () => {
     const props = {
       title: "Test Title",
       todoListId: "1",
