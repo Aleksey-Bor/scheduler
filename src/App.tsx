@@ -2,20 +2,19 @@ import "./App.css";
 import { TaskType, TodoList } from "./TodoList";
 import { v1 } from "uuid";
 import { AddItemForm } from "./AddItemForm";
-import { Box, Grid, Paper } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import {
   AddTodoListAC,
   ChangeFilterTodoListAC,
   ChangeTitleTodoListAC,
   RemoveTodoListAC,
-} from "./state/totolists-reducer";
+} from "./state/todolists-reducer";
 import {
   AddTaskAC,
   ChangeIsDoneTaskAC,
   ChangeTitleTaskAC,
   RemoveTaskAC,
-  RemoveTasksAC,
-  tasksReducer,
+  RemoveTasksAC, 
 } from "./state/tasks-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";

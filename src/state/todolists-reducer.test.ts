@@ -6,7 +6,7 @@ import {
   ChangeTitleTodoListAC,
   RemoveTodoListAC,
   todoListsReducer,
-} from "./totolists-reducer";
+} from "./todolists-reducer";
 
 function getStartState(): Array<TodoListType> {
   return [
