@@ -104,7 +104,7 @@ function App() {
     // .then(res => console.log(res.data))
       .then(res => dispatch(SetTodoListsAC(res.data)))
       
-  })
+  }, [dispatch])
 
   return (
     <div>
