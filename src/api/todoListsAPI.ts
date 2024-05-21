@@ -10,4 +10,9 @@ export const todoListsAPI = {
       "http://localhost:3001/todo-lists"
     );
   },
+
+  addTodoList(title: string) {
+    const data = { title };    
+    return axios.post("http://localhost:3001/todo-lists", data)
+  }
 };
