@@ -94,17 +94,18 @@ function App() {
 
   const addTodoList = useCallback(
     (listTitle: string) => {
-      dispatch(AddTodoListAC(listTitle));
+      todoListsAPI
+        .addTodoList(listTitle)
+        .then((res) => dispatch(AddTodoListAC(res.data.data)));
     },
     [dispatch]
   );
 
   useEffect(() => {
-    todoListsAPI.getTodoLists()
-    // .then(res => console.log(res.data))
-      .then(res => dispatch(SetTodoListsAC(res.data)))
-      
-  }, [dispatch])
+    todoListsAPI
+      .getTodoLists()
+      .then((res) => dispatch(SetTodoListsAC(res.data)));
+  }, [dispatch]);
 
   return (
     <div>

@@ -19,23 +19,25 @@ function getStartState(): Array<TodoListType> {
 describe("TodoList-reducer", () => {
   it("The state should be filled with to-do list data if there is data on the server", async () => {
     const startState: Array<TodoListType> = [];
-  
+
     // Мокаем функцию getTodoLists
     const mockGetTodoLists = jest.fn();
     todoListsAPI.getTodoLists = mockGetTodoLists;
-  
+
     // Мокаем данные, которые должны вернуться
     const mockData = [
       { id: todoListId1, title: "Что сделать", filter: "all" },
       { id: todoListId2, title: "Что купить", filter: "all" },
     ];
     mockGetTodoLists.mockResolvedValue({ data: mockData });
-  
-    const responseData = await todoListsAPI.getTodoLists().then((res) => res.data);
-  
+
+    const responseData = await todoListsAPI
+      .getTodoLists()
+      .then((res) => res.data);
+
     const action = SetTodoListsAC(responseData);
     const endState = todoListsReducer(startState, action);
-  
+
     // Проверяем, что endState содержит все элементы из mockData
     mockData.forEach((item, index) => {
       expect(endState[index].id).toBe(item.id);
@@ -97,13 +99,24 @@ describe("TodoList-reducer", () => {
     expect(endState[0].filter).toBe("all");
   });
 
-  it("The new to-do list should be added to the beginning of the to-do list array.", () => {
+  it("The new to-do list should be added to the beginning of the to-do list array.", async () => {
     let startState = getStartState();
 
-    const action = AddTodoListAC("New To-do list");
+    const mockAddTodoList = jest.fn();
+    todoListsAPI.addTodoList = mockAddTodoList;
+
+    const mockData = {id: "2", title: "Что прочитать", filter: "all"};
+
+    mockAddTodoList.mockResolvedValue({ data: mockData });
+
+    const responseData = await todoListsAPI 
+      .addTodoList("Что прочитать")
+      .then((res) => res.data);
+    console.log(responseData)
+    const action = AddTodoListAC(responseData);
     const endState = todoListsReducer(startState, action);
 
-    expect(endState[0].title).toBe("New To-do list");
+    expect(endState[0].title).toBe(responseData.title);
     expect(endState[0].id).toBeTruthy();
     expect(endState[1].id).toBeTruthy();
     expect(endState[2].id).toBeTruthy();
