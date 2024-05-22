@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { TodoListType, todoListId1, todoListId2 } from "../App";
 import {
   AddTodoListAC,
@@ -56,13 +57,27 @@ describe("TodoList-reducer", () => {
     expect(endState.find((tl) => tl.id === todoListId2)).toBeUndefined();
   });
 
-  it("The title of the desired to-do list should change to the new title", () => {
+  it("The title of the desired to-do list should change to the new title", async () => {
     const startState = getStartState();
 
-    const action = ChangeTitleTodoListAC(todoListId2, "New To-do List");
+    const mockUpdateTodoList = jest.fn();
+    todoListsAPI.updateTodoList = mockUpdateTodoList;
+
+    const newTitle = "Что прочитать";
+    const mockData = { id: todoListId2, title: newTitle, filter: "all" };
+    mockUpdateTodoList.mockResolvedValue({ data: mockData });
+
+    const responseData = await todoListsAPI
+      .updateTodoList(todoListId2, newTitle)
+      .then((res) => res.data);
+
+    const action = ChangeTitleTodoListAC(
+      responseData.id,
+      responseData.title
+    );
     const endState = todoListsReducer(startState, action);
 
-    expect(endState[1].title).toBe("New To-do List");
+    expect(endState[1].title).toBe(newTitle);
     expect(endState[0].title).toBe(startState[0].title);
   });
 
@@ -105,22 +120,22 @@ describe("TodoList-reducer", () => {
     const mockAddTodoList = jest.fn();
     todoListsAPI.addTodoList = mockAddTodoList;
 
-    const mockData = {id: "2", title: "Что прочитать", filter: "all"};
+    const mockData = { id: "2", title: "Что прочитать", filter: "all" };
 
     mockAddTodoList.mockResolvedValue({ data: mockData });
 
-    const responseData = await todoListsAPI 
+    const responseData = await todoListsAPI
       .addTodoList("Что прочитать")
       .then((res) => res.data);
-    console.log(responseData)
+
     const action = AddTodoListAC(responseData);
     const endState = todoListsReducer(startState, action);
 
-    expect(endState[0].title).toBe(responseData.title);
-    expect(endState[0].id).toBeTruthy();
-    expect(endState[1].id).toBeTruthy();
-    expect(endState[2].id).toBeTruthy();
-    expect(endState[0].filter).toBe("all");
     expect(endState.length).toBe(startState.length + 1);
+    expect(endState[0].id).toBe(responseData.id);
+    expect(endState[0].title).toBe(responseData.title);
+    expect(endState[0].filter).toBe("all");
+    expect(endState[1].id).toBe(startState[0].id);
+    expect(endState[2].id).toBe(startState[1].id);
   });
 });

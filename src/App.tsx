@@ -80,7 +80,9 @@ function App() {
 
   const changeTodoListTitle = useCallback(
     (todoListId: string, newTitle: string) => {
-      dispatch(ChangeTitleTodoListAC(todoListId, newTitle));
+      todoListsAPI.updateTodoList(todoListId, newTitle).then((res) => {
+        dispatch(ChangeTitleTodoListAC(res.data.data.id, res.data.data.title));
+      });
     },
     [dispatch]
   );
