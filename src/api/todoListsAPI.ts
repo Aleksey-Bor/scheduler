@@ -1,9 +1,4 @@
 import axios from "axios";
-import { update } from "lodash";
-
-// const settings = {
-//    withCredentials: true,
-// }
 
 export const todoListsAPI = {
   getTodoLists() {
@@ -18,5 +13,9 @@ export const todoListsAPI = {
   updateTodoList(id: string, title: string) {
     const data = { title };
     return axios.put(`http://localhost:3001/todo-lists/${id}`, data);
+  },
+
+  deleteTodoList(id: string) {
+    return axios.delete(`http://localhost:3001/todo-lists/${id}`);
   },
 };

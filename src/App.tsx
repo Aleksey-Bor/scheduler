@@ -72,8 +72,13 @@ function App() {
 
   const removeTodoList = useCallback(
     (elemId: string) => {
-      dispatch(RemoveTodoListAC(elemId));
-      dispatch(RemoveTasksAC(elemId));
+      todoListsAPI.deleteTodoList(elemId).then(
+        res => {
+          console.log(res)
+          dispatch(RemoveTodoListAC(res.data.data.id));
+          dispatch(RemoveTasksAC(res.data.data.id));
+        }
+      )
     },
     [dispatch]
   );

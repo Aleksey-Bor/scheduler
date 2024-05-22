@@ -47,10 +47,20 @@ describe("TodoList-reducer", () => {
     });
   });
 
-  it("should remove correct todolist", () => {
+  it("should remove correct todolist", async () => {
     const startState = getStartState();
 
-    const action = RemoveTodoListAC(todoListId2);
+    const mockDeleteTodoList = jest.fn();
+    todoListsAPI.deleteTodoList = mockDeleteTodoList;
+
+    const mockData = { id: todoListId2, title: "Что купить", filter: "all" };
+    mockDeleteTodoList.mockResolvedValue({ data: mockData });
+
+    const responseData = await todoListsAPI
+      .deleteTodoList(todoListId2)
+      .then((res) => res.data);
+
+    const action = RemoveTodoListAC(responseData.id);
     const endState = todoListsReducer(startState, action);
 
     expect(endState.length).toBe(1);
@@ -71,10 +81,7 @@ describe("TodoList-reducer", () => {
       .updateTodoList(todoListId2, newTitle)
       .then((res) => res.data);
 
-    const action = ChangeTitleTodoListAC(
-      responseData.id,
-      responseData.title
-    );
+    const action = ChangeTitleTodoListAC(responseData.id, responseData.title);
     const endState = todoListsReducer(startState, action);
 
     expect(endState[1].title).toBe(newTitle);
