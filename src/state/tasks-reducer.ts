@@ -1,3 +1,6 @@
+// Старый синтаксис редюсера оставлен намеренно, чтобы "помнить"  оба варианта, так как это учебный проект.
+// The old reducer syntax is left on purpose to "remember" both options, since this is a learning project.
+
 import { TaskType } from "./../TodoList";
 import { TaskStateType } from "../App";
 import { v1 } from "uuid";
