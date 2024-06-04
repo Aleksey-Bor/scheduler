@@ -81,7 +81,7 @@ describe("TodoList-reducer", () => {
       .updateTodoList(todoListId2, newTitle)
       .then((res) => res.data);
 
-    const action = ChangeTitleTodoListAC(responseData.id, responseData.title);
+    const action = ChangeTitleTodoListAC({todoListId: responseData.id, newTitle: responseData.title});
     const endState = todoListsReducer(startState, action);
 
     expect(endState[1].title).toBe(newTitle);
@@ -91,7 +91,7 @@ describe("TodoList-reducer", () => {
   it("The value of the filter property should change to 'completed' for the correct to-do list", () => {
     const startState = getStartState();
 
-    const action = ChangeFilterTodoListAC(todoListId2, "completed");
+    const action = ChangeFilterTodoListAC({todoListId: todoListId2, newFilter: "completed"});
     const endState = todoListsReducer(startState, action);
 
     expect(endState[1].filter).toBe("completed");
@@ -101,7 +101,7 @@ describe("TodoList-reducer", () => {
   it("The value of the filter property should change to 'active' for the correct to-do list.", () => {
     const startState = getStartState();
 
-    const action = ChangeFilterTodoListAC(todoListId2, "active");
+    const action = ChangeFilterTodoListAC({todoListId: todoListId2, newFilter: "active"});
     const endState = todoListsReducer(startState, action);
 
     expect(endState[1].filter).toBe("active");
@@ -111,10 +111,10 @@ describe("TodoList-reducer", () => {
   it("The value of the filter property should change to 'all' for the correct to-do list.", () => {
     let startState = getStartState();
 
-    let action = ChangeFilterTodoListAC(todoListId2, "completed");
+    let action = ChangeFilterTodoListAC({todoListId: todoListId2, newFilter: "completed"});
     startState = todoListsReducer(startState, action);
 
-    action = ChangeFilterTodoListAC(todoListId2, "all");
+    action = ChangeFilterTodoListAC({todoListId: todoListId2, newFilter: "all"});
     const endState = todoListsReducer(startState, action);
 
     expect(endState[1].filter).toBe("all");

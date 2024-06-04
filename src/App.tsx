@@ -5,10 +5,10 @@ import { AddItemForm } from "./AddItemForm";
 import { Box, Grid } from "@mui/material";
 import {
   AddTodoListAC,
-  ChangeFilterTodoListAC,
-  ChangeTitleTodoListAC,
   RemoveTodoListAC,
   SetTodoListsAC,
+  ChangeTitleTodoListAC,
+  ChangeFilterTodoListAC,
 } from "./state/todolists-reducer";
 import {
   AddTaskAC,
@@ -86,15 +86,17 @@ function App() {
   const changeTodoListTitle = useCallback(
     (todoListId: string, newTitle: string) => {
       todoListsAPI.updateTodoList(todoListId, newTitle).then((res) => {
-        dispatch(ChangeTitleTodoListAC(res.data.data.id, res.data.data.title));
+        dispatch(ChangeTitleTodoListAC({todoListId: res.data.data.id, newTitle: res.data.data.title}));
+        // dispatch(ChangeTitleTodoListAC(res.data.data.id, res.data.data.title));
       });
     },
     [dispatch]
   );
 
   const changeFilter = useCallback(
-    (filter: FilterValuesType, todoListId: string) => {
-      dispatch(ChangeFilterTodoListAC(todoListId, filter));
+    (filter: FilterValuesType, todoListId: string) => {   
+      dispatch(ChangeFilterTodoListAC({todoListId: todoListId, newFilter: filter}));
+      // dispatch(ChangeFilterTodoListAC(todoListId, filter));
     },
     [dispatch]
   );
