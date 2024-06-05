@@ -11,8 +11,13 @@ export const AddItemForm = React.memo((props: AddItemFormType) => {
   const [newTitle, setNewTitle] = useState("");
 
   const onNewItemChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewTitle(event.currentTarget.value);
-    setError(null);
+    if (newTitle.length > 100) {
+      setNewTitle(event.currentTarget.value);
+      setError("Заголовок не должен превышать 100 символов");
+    } else {
+      setNewTitle(event.currentTarget.value);
+      setError(null);
+    }
   };
 
   const onAddItemKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -22,7 +27,10 @@ export const AddItemForm = React.memo((props: AddItemFormType) => {
   };
 
   const addItemHandler = () => {
-    if (newTitle.trim() !== "") {
+    if (newTitle.length > 100) {
+      setError("Заголовок не должен превышать 100 символов");
+      setNewTitle(newTitle);
+    } else if (newTitle.trim() !== "") {
       props.addItem(newTitle);
       setNewTitle("");
     } else {

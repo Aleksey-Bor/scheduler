@@ -87,7 +87,6 @@ function App() {
     (todoListId: string, newTitle: string) => {
       todoListsAPI.updateTodoList(todoListId, newTitle).then((res) => {
         dispatch(ChangeTitleTodoListAC({todoListId: res.data.data.id, newTitle: res.data.data.title}));
-        // dispatch(ChangeTitleTodoListAC(res.data.data.id, res.data.data.title));
       });
     },
     [dispatch]
@@ -96,7 +95,6 @@ function App() {
   const changeFilter = useCallback(
     (filter: FilterValuesType, todoListId: string) => {   
       dispatch(ChangeFilterTodoListAC({todoListId: todoListId, newFilter: filter}));
-      // dispatch(ChangeFilterTodoListAC(todoListId, filter));
     },
     [dispatch]
   );
