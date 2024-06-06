@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { TodoListType, todoListId1, todoListId2 } from "../App";
 import {
   AddTodoListAC,
