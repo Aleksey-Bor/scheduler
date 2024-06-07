@@ -4,6 +4,7 @@ import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 
 type AddItemFormType = {
   addItem: (title: string) => void;
+  maxLength: number;
 };
 
 export const AddItemForm = React.memo((props: AddItemFormType) => {
@@ -11,7 +12,7 @@ export const AddItemForm = React.memo((props: AddItemFormType) => {
   const [newTitle, setNewTitle] = useState("");
 
   const onNewItemChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    if (newTitle.length > 100) {
+    if (newTitle.length > props.maxLength) {
       setNewTitle(event.currentTarget.value);
       setError("Заголовок не должен превышать 100 символов");
     } else {
@@ -27,7 +28,7 @@ export const AddItemForm = React.memo((props: AddItemFormType) => {
   };
 
   const addItemHandler = () => {
-    if (newTitle.length > 100) {
+    if (newTitle.length > props.maxLength) {
       setError("Заголовок не должен превышать 100 символов");
       setNewTitle(newTitle);
     } else if (newTitle.trim() !== "") {

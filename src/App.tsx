@@ -118,7 +118,7 @@ function App() {
     <div>
       <Box display="flex" flexDirection={"column"} alignItems="center">
         <h1>Добавьте новый список дел</h1>
-        <AddItemForm addItem={addTodoList} />
+        <AddItemForm addItem={addTodoList} maxLength={100}/>
       </Box>
       <div style={{ padding: 24 }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2 }}>

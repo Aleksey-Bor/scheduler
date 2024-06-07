@@ -69,7 +69,7 @@ export const TodoList = React.memo(
             <EditableSpan title={props.title} onChangeTitle={onChangeTitle} />
             <RemoveButton remover={remover} elemId={props.todoListId} />
           </h2>
-          <AddItemForm addItem={addTask} />
+          <AddItemForm addItem={addTask} maxLength={500}/>
           <ul>
             <Task
               tasks={props.tasks}
