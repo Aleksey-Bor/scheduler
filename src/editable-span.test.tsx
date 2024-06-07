@@ -1,30 +1,51 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { EditableSpan } from './EditableSpan';
+//Ideal test :))
+// Импорт необходимых библиотек и компонентов
+import { render, fireEvent } from "@testing-library/react";
+import { EditableSpan } from "./EditableSpan";
 
-describe('EditableSpan', () => {
-  it('renders correctly and switches between view and edit modes', () => {
-    const onChangeTitle = jest.fn();
-    const { getByText, getByDisplayValue } = render(<EditableSpan title="Test title" onChangeTitle={onChangeTitle} />);
+// Начало блока тестов для компонента EditableSpan
+describe("EditableSpan component", () => {
+  // Тест на проверку отображения заголовка и активации режима редактирования при двойном клике
+  it("should display the title and activate edit mode on double click", () => {
+    const mockFn = jest.fn();
+    const { getByText, getByRole } = render(
+      <EditableSpan title="Test" maxLength={10} onChangeTitle={mockFn} />
+    );
+    const spanElement = getByText("Test");
+    fireEvent.doubleClick(spanElement);
+    const inputElement = getByRole("textbox");
+    expect(inputElement).toBeInTheDocument();
+  });
 
-    // Проверяем, что спан с начальным заголовком отображается
-    const span = getByText('Test title');
-    expect(span).toBeInTheDocument();
+  // Тест на проверку изменения заголовка
+  it("should change the title", () => {
+    const mockFn = jest.fn();
+    const { getByText, getByRole } = render(
+      <EditableSpan title="Test" maxLength={10} onChangeTitle={mockFn} />
+    );
+    const spanElement = getByText("Test");
+    fireEvent.doubleClick(spanElement);
+    const inputElement = getByRole("textbox");
+    fireEvent.change(inputElement, { target: { value: "New Test" } });
+    fireEvent.blur(inputElement);
+    expect(mockFn).toHaveBeenCalledWith("New Test");
+  });
 
-    // Симулируем двойной клик по спану, чтобы перейти в режим редактирования
-    fireEvent.doubleClick(span);
-
-    // Проверяем, что поле ввода с начальным значением отображается
-    const input = getByDisplayValue('Test title');
-    expect(input).toBeInTheDocument();
-
-    // Изменяем значение поля ввода
-    fireEvent.change(input, { target: { value: 'New title' } });
-
-    // Симулируем событие onBlur, чтобы перейти обратно в режим просмотра
-    fireEvent.blur(input);
-
-    // Проверяем, что функция onChangeTitle вызывается с новым значением
-    expect(onChangeTitle).toHaveBeenCalledWith('New title');
+  // Тест на проверку валидации длины заголовка
+  it("should validate the length of the title", () => {
+    const mockFn = jest.fn();
+    const { getByText, getByRole } = render(
+      <EditableSpan title="Test" maxLength={7} onChangeTitle={mockFn} />
+    );
+    const spanElement = getByText("Test");
+    fireEvent.doubleClick(spanElement);
+    const inputElement = getByRole("textbox");
+    fireEvent.change(inputElement, { target: { value: "TestingTesting" } });
+    fireEvent.blur(inputElement);
+    expect(inputElement).toHaveAttribute("aria-invalid", "true");
+    expect(inputElement).toHaveAttribute(
+      "aria-describedby",
+      expect.stringContaining("-helper-text")
+    );
   });
 });

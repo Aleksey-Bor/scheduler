@@ -66,7 +66,7 @@ export const TodoList = React.memo(
       <Paper elevation={3} style={{ padding: 8 }} sx={{ bgcolor: "#fff9c4" }}>
         <div>
           <h2>
-            <EditableSpan title={props.title} onChangeTitle={onChangeTitle} />
+            <EditableSpan title={props.title} maxLength={100} onChangeTitle={onChangeTitle} />
             <RemoveButton remover={remover} elemId={props.todoListId} />
           </h2>
           <AddItemForm addItem={addTask} maxLength={500}/>
