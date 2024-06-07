@@ -12,8 +12,9 @@ export const AddItemForm = React.memo((props: AddItemFormType) => {
   const [newTitle, setNewTitle] = useState("");
 
   const onNewItemChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewTitle(event.currentTarget.value);
-    if (newTitle.length > props.maxLength) {
+    const newValue = event.currentTarget.value;
+    setNewTitle(newValue);
+    if (newValue.length > props.maxLength) {
       setError(`Заголовок не должен превышать ${props.maxLength} символов.`);
     } else {
       setError(null);
@@ -29,7 +30,6 @@ export const AddItemForm = React.memo((props: AddItemFormType) => {
   const addItemHandler = () => {
     if (newTitle.length > props.maxLength) {
       setError(`Заголовок не должен превышать ${props.maxLength} символов.`);
-      setNewTitle(newTitle);
     } else if (newTitle.trim() !== "") {
       props.addItem(newTitle);
       setNewTitle("");
