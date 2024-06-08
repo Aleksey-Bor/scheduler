@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import React, { useCallback, useEffect } from "react";
 import { todoListsAPI } from "./api/todoListsAPI";
+import { tasksAPI } from "./api/tasksAPI";
 
 export type FilterValuesType = "all" | "active" | "completed";
 export type TodoListType = {
@@ -65,20 +66,20 @@ function App() {
 
   const addTask = useCallback(
     (taskTitle: string, todoListId: string) => {
-      dispatch(AddTaskAC(todoListId, taskTitle));
+      tasksAPI.addTask(taskTitle, todoListId).then((res) => {
+      dispatch(AddTaskAC(todoListId, res.data.data.id, res.data.data.title, res.data.data.isDown));
+      })
     },
     [dispatch]
   );
 
   const removeTodoList = useCallback(
     (elemId: string) => {
-      todoListsAPI.deleteTodoList(elemId).then(
-        res => {
-          console.log(res)
-          dispatch(RemoveTodoListAC(res.data.data.id));
-          dispatch(RemoveTasksAC(res.data.data.id));
-        }
-      )
+      todoListsAPI.deleteTodoList(elemId).then((res) => {
+        console.log(res);
+        dispatch(RemoveTodoListAC(res.data.data.id));
+        dispatch(RemoveTasksAC(res.data.data.id));
+      });
     },
     [dispatch]
   );
@@ -86,15 +87,22 @@ function App() {
   const changeTodoListTitle = useCallback(
     (todoListId: string, newTitle: string) => {
       todoListsAPI.updateTodoList(todoListId, newTitle).then((res) => {
-        dispatch(ChangeTitleTodoListAC({todoListId: res.data.data.id, newTitle: res.data.data.title}));
+        dispatch(
+          ChangeTitleTodoListAC({
+            todoListId: res.data.data.id,
+            newTitle: res.data.data.title,
+          })
+        );
       });
     },
     [dispatch]
   );
 
   const changeFilter = useCallback(
-    (filter: FilterValuesType, todoListId: string) => {   
-      dispatch(ChangeFilterTodoListAC({todoListId: todoListId, newFilter: filter}));
+    (filter: FilterValuesType, todoListId: string) => {
+      dispatch(
+        ChangeFilterTodoListAC({ todoListId: todoListId, newFilter: filter })
+      );
     },
     [dispatch]
   );
@@ -118,7 +126,7 @@ function App() {
     <div>
       <Box display="flex" flexDirection={"column"} alignItems="center">
         <h1>Добавьте новый список дел</h1>
-        <AddItemForm addItem={addTodoList} maxLength={100}/>
+        <AddItemForm addItem={addTodoList} maxLength={100} />
       </Box>
       <div style={{ padding: 24 }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2 }}>

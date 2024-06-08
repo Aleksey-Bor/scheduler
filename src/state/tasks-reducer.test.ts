@@ -102,7 +102,7 @@ describe("Tasks-reducer", () => {
   it("A new task with a title should be added to the beginning of the correct to-do list", () => {
     const startState = getStartState();
 
-    const action = AddTaskAC(todoListId2, "New Task");
+    const action = AddTaskAC(todoListId2, "1", "New Task", false);
     const endState = tasksReducer(startState, action);
 
     expect(endState[todoListId2].length).toBe(
