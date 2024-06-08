@@ -10,8 +10,8 @@ describe("AddItemForm component", () => {
     const inputElement = getByRole("textbox");
     fireEvent.change(inputElement, { target: { value: "TestingTesting" } });
     expect(inputElement).toHaveAttribute(
-      "aria-describedby",
-      expect.stringContaining("-helper-text")
+      "aria-describedby", //атрибут из Material UI
+      expect.stringContaining("-helper-text") //подстрока из Material UI
     );
   });
 
