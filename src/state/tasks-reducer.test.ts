@@ -6,6 +6,7 @@ import {
   ChangeTitleTaskAC,
   RemoveTaskAC,
   RemoveTasksAC,
+  SetTasksAC,
   tasksReducer,
 } from "./tasks-reducer";
 
@@ -25,6 +26,21 @@ function getStartState(): TaskStateType {
 }
 
 describe("Tasks-reducer", () => {
+  it("should set tasks for the given todo list", () => {
+    const startState = getStartState();
+
+    const newTasks = [
+      { id: v1(), title: "New Task 1", isDone: false },
+      { id: v1(), title: "New Task 2", isDone: true },
+    ];
+
+    const action = SetTasksAC(todoListId1, newTasks);
+    const endState = tasksReducer(startState, action);
+
+    expect(endState[todoListId1]).toEqual(newTasks);
+    expect(endState[todoListId2]).toEqual(startState[todoListId2]);
+  });
+
   it("the correct tasks associated with the deleted to-do list need to be deleted", () => {
     const startState = getStartState();
 

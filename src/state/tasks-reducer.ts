@@ -3,10 +3,10 @@
 
 import { TaskType } from "./../TodoList";
 import { TaskStateType } from "../App";
-import { v1 } from "uuid";
 import { Action } from "@reduxjs/toolkit";
 
 enum ActionTypes {
+  SET_TASKS = "SET_TASKS",
   REMOVE_TASKS = "REMOVE_TASKS",
   REMOVE_TASK = "REMOVE_TASK",
   CHANGE_IS_DONE_TASK = "CHANGE_IS_DONE_TASK",
@@ -14,6 +14,12 @@ enum ActionTypes {
   ADD_TASK = "ADD_TASK",
   // другие типы действий...
 }
+
+type SetTasksActionType = {
+  type: ActionTypes.SET_TASKS;
+  todoListId: string;
+  tasks: Array<TaskType>;
+};
 
 type RemoveTasksActionType = {
   type: ActionTypes.REMOVE_TASKS;
@@ -49,11 +55,21 @@ type AddTaskActionType = {
 };
 
 type ActionType =
+  | SetTasksActionType
   | RemoveTasksActionType
   | RemoveTaskActionType
   | ChangeIsDownTaskActionType
   | ChangeTitleTaskActionType
   | AddTaskActionType;
+
+export const SetTasksAC = (
+  todoListId: string,
+  tasks: Array<TaskType>
+): SetTasksActionType => ({
+  type: ActionTypes.SET_TASKS,
+  todoListId: todoListId,
+  tasks: tasks,
+});
 
 export const RemoveTasksAC = (todoListId: string): RemoveTasksActionType => ({
   type: ActionTypes.REMOVE_TASKS,
@@ -77,7 +93,7 @@ export const ChangeIsDoneTaskAC = (
   type: ActionTypes.CHANGE_IS_DONE_TASK,
   todoListId: todoListId,
   taskId: taskId,
-  isDone: isDone
+  isDone: isDone,
 });
 
 export const ChangeTitleTaskAC = (
@@ -95,7 +111,7 @@ export const AddTaskAC = (
   todoListId: string,
   taskId: string,
   taskTitle: string,
-  isDown: boolean,
+  isDown: boolean
 ): AddTaskActionType => ({
   type: ActionTypes.ADD_TASK,
   todoListId: todoListId,
@@ -110,6 +126,9 @@ export const tasksReducer = (
 ): TaskStateType => {
   const typedAction = action as ActionType;
   switch (typedAction.type) {
+    case ActionTypes.SET_TASKS: {
+      return { ...state, [typedAction.todoListId]: typedAction.tasks };
+    }
     case ActionTypes.REMOVE_TASKS: {
       let newTasks = { ...state };
       delete newTasks[typedAction.todoListId];
@@ -145,7 +164,11 @@ export const tasksReducer = (
       return { ...newTask };
     }
     case ActionTypes.ADD_TASK: {
-      let newTask = { id: typedAction.taskId, title: typedAction.taskTitle, isDone: typedAction.isDown };
+      let newTask = {
+        id: typedAction.taskId,
+        title: typedAction.taskTitle,
+        isDone: typedAction.isDown,
+      };
       let tasksForTodoList = state[typedAction.todoListId]
         ? [newTask, ...state[typedAction.todoListId]]
         : [newTask];

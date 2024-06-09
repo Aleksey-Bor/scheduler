@@ -16,6 +16,7 @@ import {
   ChangeTitleTaskAC,
   RemoveTaskAC,
   RemoveTasksAC,
+  SetTasksAC,
 } from "./state/tasks-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
@@ -124,9 +125,14 @@ function App() {
   );
 
   useEffect(() => {
-    todoListsAPI
-      .getTodoLists()
-      .then((res) => dispatch(SetTodoListsAC(res.data)));
+    todoListsAPI.getTodoLists().then((res) => {
+      dispatch(SetTodoListsAC(res.data));
+      res.data.forEach((todoList: TodoListType) => {
+        tasksAPI
+          .getTasks(todoList.id)
+          .then((res) => dispatch(SetTasksAC(todoList.id, res.data.data)));
+      });
+    });
   }, [dispatch]);
 
   return (
