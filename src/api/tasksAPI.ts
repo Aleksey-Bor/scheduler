@@ -3,7 +3,9 @@ import axios from "axios";
 const BASE_URL = "http://localhost:3001";
 
 export const tasksAPI = {
-  getTasks() {},
+  getTasks(todoListId: string) {
+    return axios.get(`${BASE_URL}/todo-lists/${todoListId}/tasks`);
+  },
 
   addTask(title: string, todoListId: string) {
     const data = { title };

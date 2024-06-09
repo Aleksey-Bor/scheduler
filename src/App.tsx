@@ -67,8 +67,15 @@ function App() {
   const addTask = useCallback(
     (taskTitle: string, todoListId: string) => {
       tasksAPI.addTask(taskTitle, todoListId).then((res) => {
-      dispatch(AddTaskAC(todoListId, res.data.data.id, res.data.data.title, res.data.data.isDown));
-      })
+        dispatch(
+          AddTaskAC(
+            todoListId,
+            res.data.data.id,
+            res.data.data.title,
+            res.data.data.isDown
+          )
+        );
+      });
     },
     [dispatch]
   );
