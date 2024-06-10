@@ -60,7 +60,15 @@ function App() {
 
   const changeTask = useCallback(
     (taskId: string, todoListId: string, newTitle: string) => {
-      dispatch(ChangeTitleTaskAC(todoListId, taskId, newTitle));
+      tasksAPI.updateTask(taskId, todoListId, newTitle).then((res) => {
+        dispatch(
+          ChangeTitleTaskAC(
+            todoListId,
+            res.data.data.id,
+            res.data.data.title
+          )
+        );
+      });
     },
     [dispatch]
   );
@@ -84,9 +92,7 @@ function App() {
   const removeTodoList = useCallback(
     (elemId: string) => {
       todoListsAPI.deleteTodoList(elemId).then((res) => {
-        console.log(res);
         dispatch(RemoveTodoListAC(res.data.data.id));
-        dispatch(RemoveTasksAC(res.data.data.id));
       });
     },
     [dispatch]
