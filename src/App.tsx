@@ -46,10 +46,12 @@ function App() {
 
   const removeTask = useCallback(
     (id: string, todoListId: string) => {
-      dispatch(RemoveTaskAC(todoListId, id));
+      tasksAPI.deleteTask(todoListId, id).then((res) => {
+        dispatch(RemoveTaskAC(todoListId, res.data.data.id));
+      });
     },
     [dispatch]
-  );
+  );  
 
   const changeIsDown = useCallback(
     (id: string, todoListId: string, isDone: boolean) => {
@@ -62,11 +64,7 @@ function App() {
     (taskId: string, todoListId: string, newTitle: string) => {
       tasksAPI.updateTask(taskId, todoListId, newTitle).then((res) => {
         dispatch(
-          ChangeTitleTaskAC(
-            todoListId,
-            res.data.data.id,
-            res.data.data.title
-          )
+          ChangeTitleTaskAC(todoListId, res.data.data.id, res.data.data.title)
         );
       });
     },

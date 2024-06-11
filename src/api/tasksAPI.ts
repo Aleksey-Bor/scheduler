@@ -14,6 +14,13 @@ export const tasksAPI = {
 
   updateTask(taskId: string, todoListId: string, title: string) {
     const data = { title };
-    return axios.put(`${BASE_URL}/todo-lists/${todoListId}/tasks/${taskId}`, data);
+    return axios.put(
+      `${BASE_URL}/todo-lists/${todoListId}/tasks/${taskId}`,
+      data
+    );
+  },
+
+  deleteTask(todoListId: string, taskId: string) {
+    return axios.delete(`${BASE_URL}/todo-lists/${todoListId}/tasks/${taskId}`);
   },
 };
