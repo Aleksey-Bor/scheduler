@@ -51,7 +51,7 @@ type AddTaskActionType = {
   todoListId: string;
   taskId: string;
   taskTitle: string;
-  isDown: boolean;
+  isDone: boolean;
 };
 
 type ActionType =
@@ -111,13 +111,13 @@ export const AddTaskAC = (
   todoListId: string,
   taskId: string,
   taskTitle: string,
-  isDown: boolean
+  isDone: boolean
 ): AddTaskActionType => ({
   type: ActionTypes.ADD_TASK,
   todoListId: todoListId,
   taskId: taskId,
   taskTitle: taskTitle,
-  isDown: isDown,
+  isDone: isDone,
 });
 
 export const tasksReducer = (
@@ -167,7 +167,7 @@ export const tasksReducer = (
       let newTask = {
         id: typedAction.taskId,
         title: typedAction.taskTitle,
-        isDone: typedAction.isDown,
+        isDone: typedAction.isDone,
       };
       let tasksForTodoList = state[typedAction.todoListId]
         ? [newTask, ...state[typedAction.todoListId]]

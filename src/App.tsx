@@ -81,7 +81,7 @@ function App() {
             todoListId,
             res.data.data.id,
             res.data.data.title,
-            res.data.data.isDown
+            res.data.data.isDone
           )
         );
       });
