@@ -39,7 +39,11 @@ export const Task = React.memo((props: TaskProps) => {
                 color="success"
                 checked={task.isDone}
               />
-              <EditableSpan title={task.title} maxLength={500} onChangeTitle={onChangeTitle} />
+              <EditableSpan
+                title={task.title}
+                maxLength={500}
+                onChangeTitle={onChangeTitle}
+              />
               <RemoveButton elemId={task.id} remover={remover} />
             </li>
           );
