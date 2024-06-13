@@ -11,7 +11,7 @@ describe("Task component", () => {
     tasks: [{ id: "1", title: "Test Task", isDone: false }],
     todoListId: "todo1",
     removeTask: mockRemoveTask,
-    changeIsDown: mockChangeIsDown,
+    changeIsDone: mockChangeIsDown,
     changeTask: mockChangeTask,
   };
 

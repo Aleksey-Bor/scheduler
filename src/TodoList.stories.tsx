@@ -29,7 +29,7 @@ export const TodoListExample = () => {
       removeTodoList={callbackRemoveTodoList}
       changeFilter={callbackChangeFilter}
       addTask={callbackAddTask}
-      changeIsDown={callbackChangeIsDown}
+      changeIsDone={callbackChangeIsDown}
       changeTodoListTitle={callbackChangeTodoListTitle}
     />
   );

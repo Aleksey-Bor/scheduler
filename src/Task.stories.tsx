@@ -7,7 +7,7 @@ export default {
 };
 
 const callbackRemove = action("The task deleted");
-const callbackChangeIsDown = action("The task status changed");
+const callbackChangeIsDone = action("The task status changed");
 const callbackChange = action("The task title changed");
 
 export const TaskExample = (props: any) => {
@@ -20,7 +20,7 @@ export const TaskExample = (props: any) => {
         ]}
         todoListId={"todoListId1"}
         removeTask={callbackRemove}
-        changeIsDown={callbackChangeIsDown}
+        changeIsDone={callbackChangeIsDone}
         changeTask={callbackChange}
       />
     </>

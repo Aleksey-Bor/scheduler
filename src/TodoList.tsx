@@ -23,7 +23,7 @@ type PropsTitle = {
   removeTodoList: (elemId: string) => void;
   changeFilter: (filter: FilterValuesType, todoListId: string) => void;
   addTask: (taskTitle: string, todoListId: string) => void;
-  changeIsDown: (id: string, todoListId: string, isDone: boolean) => void;
+  changeIsDone: (id: string, todoListId: string, isDone: boolean) => void;
   changeTodoListTitle: (todoListId: string, newTitle: string) => void;
 };
 
@@ -75,7 +75,7 @@ export const TodoList = React.memo(
               tasks={props.tasks}
               todoListId={props.todoListId}
               removeTask={props.removeTask}
-              changeIsDown={props.changeIsDown}
+              changeIsDone={props.changeIsDone}
               changeTask={props.changeTask}
             />
           </ul>

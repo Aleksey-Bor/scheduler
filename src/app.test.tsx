@@ -26,7 +26,7 @@ describe("App component", () => {
       removeTodoList: jest.fn(),
       changeFilter: jest.fn(),
       addTask: jest.fn(),
-      changeIsDown: jest.fn(),
+      changeIsDone: jest.fn(),
       changeTodoListTitle: jest.fn(),
     };
 

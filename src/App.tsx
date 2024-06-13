@@ -51,18 +51,21 @@ function App() {
       });
     },
     [dispatch]
-  );  
+  );
 
-  const changeIsDown = useCallback(
+  const changeIsDone = useCallback(
     (id: string, todoListId: string, isDone: boolean) => {
-      dispatch(ChangeIsDoneTaskAC(todoListId, id, isDone));
+      tasksAPI.updateTaskStatus(id, todoListId, isDone).then((res) => {        dispatch(
+          ChangeIsDoneTaskAC(todoListId, res.data.data.id, res.data.data.isDone)
+        );
+      });
     },
     [dispatch]
   );
 
   const changeTask = useCallback(
     (taskId: string, todoListId: string, newTitle: string) => {
-      tasksAPI.updateTask(taskId, todoListId, newTitle).then((res) => {
+      tasksAPI.updateTaskTitle(taskId, todoListId, newTitle).then((res) => {
         dispatch(
           ChangeTitleTaskAC(todoListId, res.data.data.id, res.data.data.title)
         );
@@ -184,7 +187,7 @@ function App() {
                   removeTodoList={removeTodoList}
                   changeFilter={changeFilter}
                   addTask={addTask}
-                  changeIsDown={changeIsDown}
+                  changeIsDone={changeIsDone}
                   changeTodoListTitle={changeTodoListTitle}
                 />
               </Grid>

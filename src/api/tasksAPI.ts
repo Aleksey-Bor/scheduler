@@ -12,8 +12,16 @@ export const tasksAPI = {
     return axios.post(`${BASE_URL}/todo-lists/${todoListId}/tasks`, data);
   },
 
-  updateTask(taskId: string, todoListId: string, title: string) {
+  updateTaskTitle(taskId: string, todoListId: string, title: string) {
     const data = { title };
+    return axios.put(
+      `${BASE_URL}/todo-lists/${todoListId}/tasks/${taskId}`,
+      data
+    );
+  },
+
+  updateTaskStatus(taskId: string, todoListId: string, isDone: boolean) {
+    const data = { isDone };
     return axios.put(
       `${BASE_URL}/todo-lists/${todoListId}/tasks/${taskId}`,
       data

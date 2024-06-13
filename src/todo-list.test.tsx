@@ -15,7 +15,7 @@ describe("TodoList component", () => {
       removeTodoList: jest.fn(),
       changeFilter: mockChangeFilter,
       addTask: jest.fn(),
-      changeIsDown: jest.fn(),
+      changeIsDone: jest.fn(),
       changeTodoListTitle: jest.fn(),
     };
 

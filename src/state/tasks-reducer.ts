@@ -144,14 +144,14 @@ export const tasksReducer = (
       return newTasks;
     }
     case ActionTypes.CHANGE_IS_DONE_TASK: {
-      let newTask = JSON.parse(JSON.stringify(state));
-      let task = newTask[typedAction.todoListId].find(
+      let newTasks = JSON.parse(JSON.stringify(state));
+      let task = newTasks[typedAction.todoListId].find(
         (task: TaskType) => task.id === typedAction.taskId
       );
       if (task) {
         task.isDone = typedAction.isDone;
       }
-      return { ...newTask };
+      return { ...newTasks };
     }
     case ActionTypes.CHANGE_TITLE_TASK: {
       let newTasks = JSON.parse(JSON.stringify(state));

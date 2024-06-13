@@ -8,7 +8,7 @@ export type TaskProps = {
   tasks: Array<TaskType>;
   todoListId: string;
   removeTask: (id: string, todoListId: string) => void;
-  changeIsDown: (id: string, todoListId: string, isDone: boolean) => void;
+  changeIsDone: (id: string, todoListId: string, isDone: boolean) => void;
   changeTask: (taskId: string, todoListId: string, newTitle: string) => void;
 };
 
@@ -28,14 +28,14 @@ export const Task = React.memo((props: TaskProps) => {
             props.changeTask(task.id, props.todoListId, newTitle);
           };
 
-          const onSetIsDownHandler = () => {
-            props.changeIsDown(task.id, props.todoListId, !task.isDone);
+          const onSetIsDoneHandler = () => {
+            props.changeIsDone(task.id, props.todoListId, !task.isDone);
           };
 
           return (
             <li className={task.isDone ? "completed" : ""} key={task.id}>
               <Checkbox
-                onChange={onSetIsDownHandler}
+                onChange={onSetIsDoneHandler}
                 color="success"
                 checked={task.isDone}
               />
