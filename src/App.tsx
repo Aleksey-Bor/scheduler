@@ -15,7 +15,6 @@ import {
   ChangeIsDoneTaskAC,
   ChangeTitleTaskAC,
   RemoveTaskAC,
-  RemoveTasksAC,
   SetTasksAC,
 } from "./state/tasks-reducer";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +22,7 @@ import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import React, { useCallback, useEffect } from "react";
 import { todoListsAPI } from "./api/todoListsAPI";
 import { tasksAPI } from "./api/tasksAPI";
+import ResponsiveAppBar from "./MenuAppBar";
 
 export type FilterValuesType = "all" | "active" | "completed";
 export type TodoListType = {
@@ -144,6 +144,7 @@ function App() {
 
   return (
     <div>
+      <ResponsiveAppBar />
       <Box display="flex" flexDirection={"column"} alignItems="center">
         <h1>Добавьте новый список дел</h1>
         <AddItemForm addItem={addTodoList} maxLength={100} />
